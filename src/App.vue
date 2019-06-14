@@ -1,26 +1,38 @@
 <template>
-<div id="app">
-  <b-navbar toggleable="lg" type="dark" variant="dark" id ="nav">
-    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-        <b-nav-item >Active</b-nav-item>
-        <b-nav-item to="/">Home</b-nav-item>
-        <b-nav-item to="/about">About</b-nav-item>
-        <b-nav-item disabled>Disabled</b-nav-item>
-        </b-navbar-nav>
-       </b-collapse>
-  </b-navbar>
-</div>
+  <v-app>
+    <v-toolbar app>
+      <v-toolbar-title class="headline text-uppercase">
+        <span>Vuetify</span>
+        <span class="font-weight-light">MATERIAL DESIGN</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn
+        flat
+        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        target="_blank"
+      >
+        <span class="mr-2">Latest Release</span>
+      </v-btn>
+    </v-toolbar>
+
+    <v-content>
+      <HelloWorld/>
+    </v-content>
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<script>
+import HelloWorld from './components/HelloWorld'
+
+export default {
+  name: 'App',
+  components: {
+    HelloWorld
+  },
+  data () {
+    return {
+      //
+    }
+  }
 }
-</style>
+</script>
