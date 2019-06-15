@@ -4,10 +4,7 @@ $cas = $_GET["cas"];
 
 switch  ($cas) {
     case 'toto':
-    $classe = new classe;
-    $classe->libelle = "toto";
-    $classe->numero = 1;
-    $classe->Add();
+    echo'super toto';
     break;
 }
 

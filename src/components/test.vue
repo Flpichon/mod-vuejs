@@ -1,12 +1,20 @@
 <template>
   <v-container>
-      <v-btn>Hello</v-btn>
+      <v-btn @click="GetListe()">Hello</v-btn>
   </v-container>
 </template>
 
 <script>
   export default {
-    
+    methods: {
+    	GetListe() {
+      var scope = this;
+      console.log(window.location.pathname);
+      axios
+      .post("/api/api.php?cas=toto")
+      .then(res => console.log(res));
+		},
+  },
   }
 </script>
     
