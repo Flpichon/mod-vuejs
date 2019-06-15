@@ -1,5 +1,15 @@
 <template>
-  <div class="about">
+<v-content>
     <h1>This is an about page</h1>
-  </div>
+    <test/>
+</v-content>
 </template>
+<script>
+import test from '../components/test.vue'
+  export default {
+    components : {
+      test
+    }
+  }
+</script>
+

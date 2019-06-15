@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
 import 'vuetify/src/stylus/app.styl'
-import fr from 'vuetify/es5/locale/fr'
+//import fr from 'vuetify/es5/locale/fr'
 
 Vue.use(Vuetify, {
   theme: {
@@ -16,9 +16,5 @@ Vue.use(Vuetify, {
   options: {
     customProperties: true
   },
-  iconfont: 'md',
-  lang: {
-    locales: { fr },
-    current: 'fr'
-  },
+  iconfont: 'md'
 })
