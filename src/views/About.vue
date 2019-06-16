@@ -1,6 +1,6 @@
 <template>
 <v-content>
-    <h1>This is an about page</h1>
+    <h1 class="black--text">This is an about page</h1>
     <test/>
 </v-content>
 </template>

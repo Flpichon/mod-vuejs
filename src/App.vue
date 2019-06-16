@@ -1,12 +1,13 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">
+      <v-parallax src="/src/assets/back.jpg">
       <v-content>
         <ToolBar/>
       </v-content>
-      <router-view/>
+        <router-view></router-view>
       </v-parallax>
+      <Footer/>
     </v-app>
   </div>
 </template>
@@ -14,11 +15,13 @@
 <script>
 //import HelloWorld from './components/HelloWorld'
 import ToolBar from './components/ToolBar'
+import Footer from './components/Footer'
 
 export default {
   name: 'App',
   components: {
-    ToolBar
+    ToolBar,
+    Footer
   },
   data () {
     return {

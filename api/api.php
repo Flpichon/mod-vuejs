@@ -1,11 +1,22 @@
 <?php include("0-config/config-genos.php");
 
-$cas = $_GET["cas"];
+if (isset($_GET["cas"])) {
+    $cas = $_GET["cas"];
 
-switch  ($cas) {
-    case 'toto':
-    echo'super toto';
-    break;
+    switch  ($cas) {
+        case 'getclasse':
+        $classe = new classe;
+        $req = "select classe.id as id, libelle, numero, classe.suppr, count(eleve.id) as nb_eleve 
+        from classe left join eleve on classe.id = eleve.id_classe 
+        where classe.suppr = 0 
+        group by classe.id 
+        order by numero";
+        $champs = array("id", "libelle", "numero", "nb_eleve");
+        $res = $classe->StructList($req,$champs,"json");
+        echo $res;
+        break;
+    }
+
 }
 
 // $cas = $_GET["cas"];

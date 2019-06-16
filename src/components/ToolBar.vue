@@ -1,9 +1,9 @@
 <template>
-    <v-toolbar>
-        <v-toolbar-title>Gestion d'élèves</v-toolbar-title>
+    <v-toolbar status>
+        <v-toolbar-title >Gestion d'élèves</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
-            <v-btn v-for="item in menu" :key="item.icon" :to="item.link">
+            <v-btn color="grey" v-for="item in menu" :key="item.icon" :to="item.link">
                 {{item.title}}
             </v-btn>
         </v-toolbar-items>

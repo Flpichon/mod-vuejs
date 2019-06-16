@@ -1,10 +1,15 @@
 <template>
     <v-content>
-    <v-btn color="warning">Yolo</v-btn>
+    <DisplayClasses/>
     </v-content>
 </template>
 
 <script>
+  import DisplayClasses from '../components/DisplayClasses'
   export default {
+    components : {
+      DisplayClasses
+    }
   }
+
 </script>
