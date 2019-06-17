@@ -9,9 +9,11 @@ import './plugins/vuetify'
 import './plugins/axios'
 import router from './router'
 import store from './store'
+import Notifications from 'vue-notification'
 
 Vue.config.productionTip = false
 Vue.use(Vuetify);
+Vue.use(Notifications);
 new Vue({
   router,
   store,

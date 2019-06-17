@@ -1,5 +1,6 @@
 <template>
      <v-container fluid grid-list-md>
+       <v-btn @click="AddRow()">Test</v-btn>
       <v-data-iterator
         :items="items"
         :rows-per-page-items="rowsPerPageItems"
@@ -16,11 +17,14 @@
             md4
             lg3
           >
-            <v-card>
+            <v-card dark:true>
               <v-card-title><h4>{{ props.item.id }}</h4>
-                <v-btn @click="ModifClass(props.item)" fab small dark color="cyan">
+                <v-btn v-if="props.item.id !== -1" @click="ModifClasse(props.item)" fab small dark  color="cyan">
                 <v-icon dark>edit</v-icon>
-              </v-btn>
+                </v-btn>
+                <v-btn v-else @click="AddClasse(props.item)" fab small dark  color="green">
+                <v-icon dark>add</v-icon>
+                </v-btn>
                <v-btn @click="GetClasses()" fab small dark color="cyan">
                 <v-icon >autorenew</v-icon>
               </v-btn>
@@ -29,7 +33,7 @@
               <v-list dense>
                 <v-list-tile>
                   <v-list-tile-content>Numéro:</v-list-tile-content>
-                  <v-list-tile-content class="align-end"><input v-model="props.item.numero"></v-list-tile-content>
+                  <v-list-tile-content class="align-end"><input type="number" v-model="props.item.numero"></v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile>
                   <v-list-tile-content>Libellé:</v-list-tile-content>
@@ -52,9 +56,9 @@
     data: () => {
         return {
         rowPageText: 'éléments par page:',
-        rowsPerPageItems: [4, 8, 12,  { text: "$vuetify.dataIterator.rowsPerPageAll", value: -1 }],
+        rowsPerPageItems: [8, 24, 32,  { text: "$vuetify.dataIterator.rowsPerPageAll", value: -1 }],
         pagination: {
-        rowsPerPage: 4
+        rowsPerPage: 8
         },
         items:[]
         }
@@ -63,6 +67,35 @@
         this.GetClasses();
     },
     methods:{
+        AddRow() {
+          let data = {};
+          data.id = -1;
+          data.libelle = 'à définir';
+          data.numero = -1;
+          data.nb_eleve = 0;
+          this.items.unshift(data);
+        },
+        AddClasse(item) {
+          let scope = this;
+          let data = {};
+          data["libelle"] = item.libelle;
+          data["numero"] = item.numero;
+          axios
+          .post(`/api/api.php?cas=addclasse`, data)
+            .then(res => {
+              let type = res.data === -1 ? 'error' : 'success';
+              let title = res.data === -1 ? 'Echec' : 'Succès';
+              let text = res.data === -1 ? "Echec de l'ajout" : "Classe ajoutée"; 
+                scope.GetClasses();
+                this.$notify({
+                  group: 'app',
+                  type,
+                  width : 800,
+                  title,
+                  text
+                });
+            })
+        },
         GetClasses() {
 			var scope = this;
             axios
@@ -71,14 +104,25 @@
                 scope.items = (res.data);
             });
         },
-        ModifClass(item) {
+        ModifClasse(item) {
+            let scope = this;
             let itemId = item.id
-
+            let data = {};
+            data["libelle"] = item.libelle;
+            data["numero"] = item.numero;
             axios
-            .post(`/api/api.php?cas=editclasse&idclasse=${itemId}`, {itemId})
+            .post(`/api/api.php?cas=editclasse&idclasse=${itemId}`, data)
             .then(res => {
-                console.log(res.data);
+                scope.GetClasses();
+                this.$notify({
+                  group: 'app',
+                  type: 'success',
+                  width : 800,
+                  title: 'Modifcations effectuées',
+                  text: 'Les informations de la classe : '+res.data+' ont été effectuées'
+                });
             });
+
         }
     }
   }

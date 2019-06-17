@@ -4,6 +4,7 @@ if (isset($_GET["cas"])) {
     $cas = $_GET["cas"];
 
     switch  ($cas) {
+        // GETCLASSE
         case 'getclasse':
         $classe = new classe;
         $req = "select classe.id as id, libelle, numero, classe.suppr, count(eleve.id) as nb_eleve 
@@ -15,15 +16,26 @@ if (isset($_GET["cas"])) {
         $res = $classe->StructList($req,$champs,"json");
         echo $res;
         break;
+        // EDITCLASSE
         case 'editclasse':
         $classe = new classe;
-        $item = file_get_contents('php://input');
-        var_dump($_POST['data']);
-        var_dump($_SERVER['REQUEST_METHOD']);
-       // echo file_get_contents('php://input');
-       // $id_classe = $_GET['idclasse'];
-        // $classe = 
+        $item = json_decode(file_get_contents('php://input'), true);
+        $classe->id = $_GET['idclasse'];
+        $classe->Load();
+        $classe->numero = $item['numero'];
+        $classe->libelle = $item['libelle'];
+        $classe->Update();
+        echo $classe->libelle; 
         break;
+        // ADDCLASSE
+        case 'addclasse':
+        $classe = new classe;
+        $item = json_decode(file_get_contents('php://input'), true);
+        if ($item['numero'] === -1) echo -1;
+        $classe->numero = $item['numero'];
+        $classe->libelle = $item['libelle'];
+        $classe->Add();
+        echo $classe->libelle;
     }
 
 }
