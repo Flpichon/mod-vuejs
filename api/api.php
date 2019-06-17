@@ -31,7 +31,10 @@ if (isset($_GET["cas"])) {
         case 'addclasse':
         $classe = new classe;
         $item = json_decode(file_get_contents('php://input'), true);
-        if ($item['numero'] === -1) echo -1;
+        if ($item['numero'] === -1) {
+            echo -1;
+            return;
+        }
         $classe->numero = $item['numero'];
         $classe->libelle = $item['libelle'];
         $classe->Add();
