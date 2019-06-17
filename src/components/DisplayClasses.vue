@@ -17,7 +17,7 @@
             md4
             lg3
           >
-            <v-card dark:true>
+            <v-card :dark=props.item.isNew>
               <v-card-title><h4>{{ props.item.id }}</h4>
                 <v-btn v-if="props.item.id !== -1" @click="ModifClasse(props.item)" fab small dark  color="cyan">
                 <v-icon dark>edit</v-icon>
@@ -60,7 +60,7 @@
         pagination: {
         rowsPerPage: 8
         },
-        items:[]
+        items:[],
         }
     },
     mounted(){
@@ -73,6 +73,7 @@
           data.libelle = 'à définir';
           data.numero = -1;
           data.nb_eleve = 0;
+          data.isNew = true;
           this.items.unshift(data);
         },
         AddClasse(item) {
