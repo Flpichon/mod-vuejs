@@ -15,6 +15,15 @@ if (isset($_GET["cas"])) {
         $res = $classe->StructList($req,$champs,"json");
         echo $res;
         break;
+        case 'editclasse':
+        $classe = new classe;
+        $item = file_get_contents('php://input');
+        var_dump($_POST['data']);
+        var_dump($_SERVER['REQUEST_METHOD']);
+       // echo file_get_contents('php://input');
+       // $id_classe = $_GET['idclasse'];
+        // $classe = 
+        break;
     }
 
 }

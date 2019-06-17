@@ -1,7 +1,5 @@
 <template>
-    <v-content>
     <DisplayClasses/>
-    </v-content>
 </template>
 
 <script>

@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <v-app id="inspire">
-      <v-parallax src="/src/assets/back.jpg">
-      <v-content>
-        <ToolBar/>
-      </v-content>
+      <v-parallax class="parallax" src="/src/assets/1511.jpg">
+          <ToolBar/>
+        <v-content>
         <router-view></router-view>
+        </v-content>
       </v-parallax>
       <Footer/>
     </v-app>
@@ -30,3 +30,9 @@ export default {
   }
 }
 </script>
+<style>
+.parallax {
+  height: 100% !important
+}
+</style>
+
