@@ -2,7 +2,7 @@
   <div id="app">
     <v-app id="inspire">
       <v-parallax class="parallax" src="/src/assets/1511.jpg">
-          <ToolBar/>
+        <ToolBar/>
         <v-content>
         <notifications group="app" />
         <router-view></router-view>
