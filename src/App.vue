@@ -17,7 +17,6 @@
 //import HelloWorld from './components/HelloWorld'
 import ToolBar from './components/ToolBar'
 import Footer from './components/Footer'
-console.log(Drawer);
 
 export default {
   name: 'App',
