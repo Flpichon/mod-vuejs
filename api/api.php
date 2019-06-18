@@ -16,6 +16,7 @@ if (isset($_GET["cas"])) {
         $res = $classe->StructList($req,$champs,"json");
         echo $res;
         break;
+
         // EDITCLASSE
         case 'editclasse':
         $classe = new classe;
@@ -27,17 +28,26 @@ if (isset($_GET["cas"])) {
         $classe->Update();
         echo $classe->libelle; 
         break;
+
         // ADDCLASSE
         case 'addclasse':
         $classe = new classe;
         $item = json_decode(file_get_contents('php://input'), true);
-        if ($item['numero'] === -1) {
+        if ($item['numero'] === 0 ) {
             echo -1;
             return;
         }
         $classe->numero = $item['numero'];
         $classe->libelle = $item['libelle'];
         $classe->Add();
+        echo $classe->libelle;
+
+        //DELETECLASSE
+        case 'deleteclasse':
+        $classe = new classe;
+        $classe->id = $_GET['idclasse'];
+        $classe->Load();
+        $classe->Delete();
         echo $classe->libelle;
     }
 

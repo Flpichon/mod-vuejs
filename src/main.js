@@ -11,10 +11,28 @@ import router from './router'
 import store from './store'
 import Notifications from 'vue-notification'
 import './plugins/element.js'
+import "./filters"
+import VuetifyDialog from 'vuetify-dialog'
 
 Vue.config.productionTip = false
 Vue.use(Vuetify);
 Vue.use(Notifications);
+Vue.use(VuetifyDialog, {
+  confirm: {
+    actions: {
+      false: 'Annuler',
+      true: {
+        text: 'Oui',
+        color: 'primary'
+      }
+    },
+    icon: false,
+    width: 500
+  },
+  warning: {},
+  error: {},
+  prompt: {}
+})
 new Vue({
   router,
   store,

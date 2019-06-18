@@ -1,6 +1,6 @@
 <template>
      <v-container fluid grid-list-md>
-       <v-btn @click="AddRow()">Test</v-btn>
+       <v-btn @click="AddRow()">Ajouter une classe</v-btn>
       <v-data-iterator
         :items="items"
         :rows-per-page-items="rowsPerPageItems"
@@ -18,22 +18,26 @@
             lg3
           >
             <v-card :dark=props.item.isNew>
-              <v-card-title><h4>{{ props.item.id }}</h4>
-                <v-btn v-if="props.item.id !== -1" @click="ModifClasse(props.item)" fab small dark  color="cyan">
+              <v-card-title ><h4>{{ props.item.libelle | Majuscules }} {{ props.item.numero }}</h4>
+                <v-spacer></v-spacer>
+                <v-btn  v-if="props.item.isNew !== true" @click="ModifClasse(props.item)" fab small dark  color="cyan">
                 <v-icon dark>edit</v-icon>
                 </v-btn>
                 <v-btn v-else @click="AddClasse(props.item)" fab small dark  color="green">
                 <v-icon dark>add</v-icon>
                 </v-btn>
-               <v-btn @click="GetClasses()" fab small dark color="cyan">
+               <v-btn @click="GetClasses()" v-if="props.item.isNew !== true" fab small dark color="cyan">
                 <v-icon >autorenew</v-icon>
+              </v-btn>
+              <v-btn @click="DeleteClasse(props.item)" v-if="props.item.isNew !== true" fab small dark color="red">
+                <v-icon >delete</v-icon>
               </v-btn>
               </v-card-title>
               <v-divider></v-divider>
               <v-list dense>
                 <v-list-tile>
                   <v-list-tile-content>Numéro:</v-list-tile-content>
-                  <v-list-tile-content class="align-end"><input type="number" v-model="props.item.numero"></v-list-tile-content>
+                  <v-list-tile-content class="align-end"><input type="number" :min=0 v-model="props.item.numero"></v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile>
                   <v-list-tile-content>Libellé:</v-list-tile-content>
@@ -67,11 +71,18 @@
         this.GetClasses();
     },
     methods:{
+        Close () {
+        this.dialogo = false;
+        setTimeout(() => {
+          this.editedClasse.numero = 0;
+          this.editedClasse.libelle = "";
+          this.editedClasse = -1
+        }, 300)
+        },
         AddRow() {
           let data = {};
-          data.id = -1;
           data.libelle = 'à définir';
-          data.numero = -1;
+          data.numero = 0;
           data.nb_eleve = 0;
           data.isNew = true;
           this.items.unshift(data);
@@ -98,7 +109,7 @@
             })
         },
         GetClasses() {
-			var scope = this;
+			      var scope = this;
             axios
             .post("/api/api.php?cas=getclasse")
             .then(res => {
@@ -120,11 +131,35 @@
                   type: 'success',
                   width : 800,
                   title: 'Modifcations effectuées',
-                  text: 'Les informations de la classe : '+res.data+' ont été effectuées'
+                  text: 'Les informations de la classe : '+res.data+' ont été modifiées'
                 });
             });
 
-        }
+        },
+        DeleteClasse(item) {
+        let scope = this;
+        let itemId = item.id;
+        this.$dialog.confirm({
+          text: 'Voulez vous vraiment supprimer cette classe ?',
+          title: 'Attention',
+        })
+        .then(conf => {
+          if (conf === true) {
+            axios
+            .post(`/api/api.php?cas=deleteclasse&idclasse=${itemId}`)
+            .then(res => {
+                scope.GetClasses();
+                this.$notify({
+                  group: 'app',
+                  type: 'success',
+                  width : 800,
+                  title: 'Suppression Effectuées',
+                  text: 'La classe : '+res.data+' a été supprimée'
+                });
+            })
+          }
+        })
+    }
     }
   }
 </script>
