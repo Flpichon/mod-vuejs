@@ -1,36 +1,43 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <div>
-      <p>
-        If Element is successfully added to this project, you'll see an
-        <code v-text="'<el-button>'"></code>
-        below
-      </p>
-      <el-button>el-button</el-button>
-    </div>
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <v-app id="inspire">
+      <v-parallax class="parallax" src="/src/assets/1511.jpg">
+        <Drawer/>
+        <ToolBar/>
+        <v-content>
+        <notifications group="app" />
+        <router-view></router-view>
+        </v-content>
+      </v-parallax>
+      <Footer/>
+    </v-app>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+//import HelloWorld from './components/HelloWorld'
+import Drawer from './components/Drawer'
+import ToolBar from './components/ToolBar'
+import Footer from './components/Footer'
+console.log(Drawer);
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
-    HelloWorld
+    Drawer,
+    ToolBar,
+    Footer,
+  },
+  data () {
+    return {
+      //
+    }
   }
 }
 </script>
-
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.parallax {
+  height: 100% !important
 }
 </style>
+
