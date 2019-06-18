@@ -22,8 +22,13 @@ import Footer from './components/Footer'
 export default {
   name: 'App',
   components: {
+<<<<<<< HEAD
     Drawer,
     Footer
+=======
+    ToolBar,
+    Footer,
+>>>>>>> 067ab3854bbd132025d577feb3e457bd91a6dd64
   },
   data () {
     return {
