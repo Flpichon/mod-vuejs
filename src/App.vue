@@ -4,6 +4,7 @@
         
       <v-parallax class="parallax" src="/src/assets/1511.jpg">
                 <Drawer/>
+                <Drawermobile/>
         <v-content>
         <notifications group="app" />
         <router-view></router-view>
@@ -17,18 +18,15 @@
 <script>
 //import HelloWorld from './components/HelloWorld'
 import Drawer from './components/Drawer'
+import Drawermobile from './components/Drawermobile'
 import Footer from './components/Footer'
 
 export default {
   name: 'App',
   components: {
-<<<<<<< HEAD
     Drawer,
+    Drawermobile,
     Footer
-=======
-    ToolBar,
-    Footer,
->>>>>>> 067ab3854bbd132025d577feb3e457bd91a6dd64
   },
   data () {
     return {

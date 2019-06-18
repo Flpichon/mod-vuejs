@@ -1,8 +1,15 @@
 <template>
-      <v-navigation-drawer class="hidden-sm-and-down"
+      <v-container class="hidden-md-and-up">
+        <v-layout left>
+        <v-btn fab dark color="teal" @click.stop="drawer = !drawer">
+          <v-icon dark>list</v-icon>
+        </v-btn>
+      </v-layout>
+      <v-navigation-drawer 
         v-model="drawer"
         app
-        
+        absolute
+        temporary
       >
         <v-toolbar flat class="transparent">
           <v-list class="pa-0">
@@ -12,7 +19,7 @@
               </v-list-tile-avatar>
   
               <v-list-tile-content>
-                <v-list-tile-title>John Leider</v-list-tile-title>
+                <v-list-tile-title>truc</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
           </v-list>
@@ -36,6 +43,7 @@
           </v-list-tile>
         </v-list>
       </v-navigation-drawer>
+      </v-container>
 </template>
 
 <script>
