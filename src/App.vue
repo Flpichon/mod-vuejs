@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <v-app id="inspire">
-        
+    <v-app light id="inspire">
+              <ToolBar/>
       <v-parallax class="parallax" src="/src/assets/1511.jpg">
-                <Drawer/>
-                <Drawermobile/>
         <v-content>
+        <v-container>
         <notifications group="app" />
         <router-view></router-view>
+        </v-container>
         </v-content>
       </v-parallax>
       <Footer/>
@@ -16,16 +16,14 @@
 </template>
 
 <script>
-//import HelloWorld from './components/HelloWorld'
-import Drawer from './components/Drawer'
-import Drawermobile from './components/Drawermobile'
+import ToolBar from './components/ToolBar'
 import Footer from './components/Footer'
 
 export default {
   name: 'App',
   components: {
-    Drawer,
-    Drawermobile,
+    ToolBar,
+   // Drawer,
     Footer
   },
   data () {
