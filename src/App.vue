@@ -2,7 +2,6 @@
   <div id="app">
     <v-app id="inspire">
       <v-parallax class="parallax" src="/src/assets/1511.jpg">
-        <Drawer/>
         <ToolBar/>
         <v-content>
         <notifications group="app" />
@@ -16,7 +15,6 @@
 
 <script>
 //import HelloWorld from './components/HelloWorld'
-import Drawer from './components/Drawer'
 import ToolBar from './components/ToolBar'
 import Footer from './components/Footer'
 console.log(Drawer);
@@ -24,7 +22,6 @@ console.log(Drawer);
 export default {
   name: 'App',
   components: {
-    Drawer,
     ToolBar,
     Footer,
   },
