@@ -16,22 +16,22 @@
           </template>
           <v-card>
             <v-card-title>
-              <span class="headline">{{ formTitle }}</span>
+              <span class="headline">toto</span>
             </v-card-title>
             <v-card-text>
               <v-container grid-list-md>
                 <v-layout wrap>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.name" label="nom"></v-text-field>
+                    <v-text-field v-model="editedEleve.nom" label="nom"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.calories" label="prenom"></v-text-field>
+                    <v-text-field v-model="editedEleve.nom" label="prenom"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.fat" label="date de naissance"></v-text-field>
+                    <v-text-field v-model="editedEleve.nom" label="date de naissance"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.carbs" label="classe"></v-text-field>
+                    <v-text-field v-model="editedEleve.nom" label="classe"></v-text-field>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -39,25 +39,24 @@
   
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-              <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
+              <v-btn color="blue darken-1" flat @click="Close">Cancel</v-btn>
+              <v-btn color="blue darken-1" flat @click="Close">Save</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
       </v-toolbar>
       <v-data-table
         :headers="headers"
-        :items="desserts"
+        :items="items"
         class="elevation-1"
       >
         <template v-slot:items="props">
-          <td>{{ props.item.name }}</td>
-          <td class="text-xs-right">{{ props.item.id }}</td>
-          <td class="text-xs-right">{{ props.item.nom }}</td>
-          <td class="text-xs-right">{{ props.item.prenom }}</td>
-          <td class="text-xs-right">{{ props.item.dateNaissance }}</td>
-          <td class="text-xs-right">{{ props.item.classe.libelle }}</td>
-          <td class="text-xs-right">{{ props.item.classe.numero }}</td>
+          <td class="text-xs">{{ props.item.id }}</td>
+          <td class="text-xs">{{ props.item.nom }}</td>
+          <td class="text-xs">{{ props.item.prenom }}</td>
+          <td class="text-xs">{{ props.item.dateNaissance }}</td>
+          <td class="text-xs">{{ props.item.classeLibelle }}</td>
+          <td class="text-xs">{{ props.item.classeNumero }}</td>
           <td class="justify-center layout px-0">
             <v-icon
               small
@@ -85,11 +84,40 @@ export default {
   data: () => {
         return {
           dialog: false,
+          headers: [
+            {
+              text: 'Eleve',
+              align: 'left',
+              value: 'id'
+            },
+            { text: 'nom', value: 'nom' },
+            { text: 'prenom', value: 'prenom' },
+            { text: 'date de naissance', value: 'dateNaissance' },
+            { text: 'classe', value: 'classeLibelle' },
+            { text: 'numero', value: 'classeNumero'},
+            { text: 'Actions', value: 'name', sortable: false }
+          ],
           classes: [],
           items: [],
+          editedEleve: {
+            "nom": "",
+            "prenom": "",
+            "dateNaissance": "",
+          },
         }
   },
+  mounted() {
+    this.GetEleves();
+  },
   methods: {
+     Close () {
+        this.dialog = false;
+        setTimeout(() => {
+          this.editedClasse.numero = 0;
+          this.editedClasse.libelle = "";
+          this.editedClasse = -1
+        }, 300)
+        },
     GetEleves() {
         let scope = this;
         axios
@@ -100,5 +128,5 @@ export default {
         });
   },
 }
+}
 </script>
-

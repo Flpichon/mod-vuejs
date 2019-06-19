@@ -56,7 +56,7 @@ if (isset($_GET["cas"])) {
         $req = "SELECT eleve.id, nom, prenom, date_naissance, classe.id as classeId, classe.libelle as classeLibelle, classe.numero as classeNumero 
         FROM `eleve` join classe on eleve.id_classe = classe.id 
         where eleve.suppr = 0";
-        $champs = array("id", "nom", "prenom", "date_naissance", "classeId", "classelibelle", "classeNumero");
+        $champs = array("id", "nom", "prenom", "date_naissance", "classeId", "classeLibelle", "classeNumero");
         $res = $eleve->StructList($req,$champs,"json");
         echo $res;
         break;

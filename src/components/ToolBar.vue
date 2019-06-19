@@ -36,7 +36,7 @@
       menu: [
         { icon: "home", title: "Home", link: "/" },
         { icon: "info", title: "About", link: "/about" },
-        { icon: "warning", title: "Link C", link: "/" }
+        { icon: "info", title: "Eleves", link: "/eleve" }
             ]
         };
     },
