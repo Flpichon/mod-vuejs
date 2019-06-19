@@ -23,7 +23,6 @@ export default {
   name: 'App',
   components: {
     ToolBar,
-   // Drawer,
     Footer
   },
   data () {
