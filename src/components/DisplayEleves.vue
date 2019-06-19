@@ -3,7 +3,7 @@
   <v-app id="inspire">
     <div>
       <v-toolbar flat color="white">
-        <v-toolbar-title>My CRUD</v-toolbar-title>
+        <v-toolbar-title>Gestion des élèves</v-toolbar-title>
         <v-divider
           class="mx-2"
           inset
@@ -12,7 +12,7 @@
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on }">
-            <v-btn color="primary" dark class="mb-2" v-on="on">New Item</v-btn>
+            <v-btn color="primary" dark class="mb-2" v-on="on">Nouvel élève</v-btn>
           </template>
           <v-card>
             <v-card-title>
