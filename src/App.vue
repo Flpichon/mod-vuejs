@@ -1,13 +1,13 @@
 <template>
   <div id="app">
     <v-app light id="inspire">
-              <ToolBar/>
-      <v-parallax class="parallax" src="/src/assets/1511.jpg">
-        <v-content>
-        <v-container>
         <notifications group="app" />
-        <router-view></router-view>
-        </v-container>
+        <ToolBar/>
+        <v-parallax class="parallax" src="/src/assets/1511.jpg">
+        <v-content>
+          <v-container>
+            <router-view></router-view>
+          </v-container>
         </v-content>
       </v-parallax>
       <Footer/>

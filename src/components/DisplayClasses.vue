@@ -18,20 +18,22 @@
             lg3
           >
             <v-card :dark=props.item.isNew>
-              <v-card-title ><h4>{{ props.item.libelle | Majuscules }} {{ props.item.numero }}</h4>
+                <v-card-title ><h4>{{ props.item.libelle | Majuscules }} {{ props.item.numero }}</h4>
                 <v-spacer></v-spacer>
-                <v-btn  v-if="props.item.isNew !== true" @click="ModifClasse(props.item)" fab small dark  color="cyan">
-                <v-icon dark>edit</v-icon>
-                </v-btn>
-                <v-btn v-else @click="AddClasse(props.item)" fab small dark  color="green">
-                <v-icon dark>add</v-icon>
-                </v-btn>
-               <v-btn @click="GetClasses()" v-if="props.item.isNew !== true" fab small dark color="cyan">
-                <v-icon >autorenew</v-icon>
-              </v-btn>
-              <v-btn @click="DeleteClasse(props.item)" v-if="props.item.isNew !== true" fab small dark color="red">
-                <v-icon >delete</v-icon>
-              </v-btn>
+                <v-flex xs12 sm12>
+                  <v-btn  small v-if="props.item.isNew !== true" @click="ModifClasse(props.item)" fab dark  color="cyan">
+                    <v-icon dark>edit</v-icon>
+                  </v-btn>
+                  <v-btn  small v-else @click="AddClasse(props.item)" fab dark  color="green">
+                    <v-icon dark>add</v-icon>
+                  </v-btn>
+                  <v-btn small @click="GetClasses()" v-if="props.item.isNew !== true" fab dark color="cyan">
+                    <v-icon >autorenew</v-icon>
+                  </v-btn>
+                  <v-btn small @click="DeleteClasse(props.item)" v-if="props.item.isNew !== true"  fab dark color="red">
+                    <v-icon >delete</v-icon>
+                  </v-btn>
+                </v-flex>
               </v-card-title>
               <v-divider></v-divider>
               <v-list dense>
@@ -153,7 +155,7 @@
                   group: 'app',
                   type: 'success',
                   width : 800,
-                  title: 'Suppression Effectuées',
+                  title: 'Suppression Effectuée',
                   text: 'La classe : '+res.data+' a été supprimée'
                 });
             })

@@ -18,24 +18,20 @@
             <v-card-title>
               <span class="headline">{{ formTitle }}</span>
             </v-card-title>
-  
             <v-card-text>
               <v-container grid-list-md>
                 <v-layout wrap>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.name" label="Dessert name"></v-text-field>
+                    <v-text-field v-model="editedItem.name" label="nom"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.calories" label="Calories"></v-text-field>
+                    <v-text-field v-model="editedItem.calories" label="prenom"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
+                    <v-text-field v-model="editedItem.fat" label="date de naissance"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
+                    <v-text-field v-model="editedItem.carbs" label="classe"></v-text-field>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -56,31 +52,53 @@
       >
         <template v-slot:items="props">
           <td>{{ props.item.name }}</td>
-          <td class="text-xs-right">{{ props.item.calories }}</td>
-          <td class="text-xs-right">{{ props.item.fat }}</td>
-          <td class="text-xs-right">{{ props.item.carbs }}</td>
-          <td class="text-xs-right">{{ props.item.protein }}</td>
+          <td class="text-xs-right">{{ props.item.id }}</td>
+          <td class="text-xs-right">{{ props.item.nom }}</td>
+          <td class="text-xs-right">{{ props.item.prenom }}</td>
+          <td class="text-xs-right">{{ props.item.dateNaissance }}</td>
+          <td class="text-xs-right">{{ props.item.classe.libelle }}</td>
+          <td class="text-xs-right">{{ props.item.classe.numero }}</td>
           <td class="justify-center layout px-0">
             <v-icon
               small
               class="mr-2"
-              @click="editItem(props.item)"
             >
               edit
             </v-icon>
             <v-icon
               small
-              @click="deleteItem(props.item)"
             >
               delete
             </v-icon>
           </td>
         </template>
         <template v-slot:no-data>
-          <v-btn color="primary" @click="initialize">Reset</v-btn>
+          <v-btn color="primary">Reset</v-btn>
         </template>
       </v-data-table>
     </div>
   </v-app>
 </div>
 </template>
+<script>
+export default {
+  data: () => {
+        return {
+          dialog: false,
+          classes: [],
+          items: [],
+        }
+  },
+  methods: {
+    GetEleves() {
+        let scope = this;
+        axios
+        .post("/api/api.php?cas=geteleve")
+        .then(res => {
+            console.log(res.data);
+            scope.items = (res.data);
+        });
+  },
+}
+</script>
+

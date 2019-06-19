@@ -1,7 +1,7 @@
 <template>
       <v-content>
       <v-navigation-drawer
-        :clipped="clipped" v-model="drawer" enable-resize-watcher :hide-overlay=false app dark class="primary lighten-3"
+        :clipped="clipped" v-model="drawer" enable-resize-watcher :hide-overlay=false app class="light"
       >
         <v-list class="pt-0" dense>
           <v-divider></v-divider>
@@ -36,7 +36,7 @@
       menu: [
         { icon: "home", title: "Home", link: "/" },
         { icon: "info", title: "About", link: "/about" },
-        { icon: "warning", title: "Link C" }
+        { icon: "warning", title: "Link C", link: "/" }
             ]
         };
     },
