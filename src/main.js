@@ -10,6 +10,7 @@ import './plugins/axios'
 import router from './router'
 import store from './store'
 import Notifications from 'vue-notification'
+import 'vue-cli-plugin-moment'
 import './plugins/element.js'
 import "./filters"
 import VuetifyDialog from 'vuetify-dialog'
