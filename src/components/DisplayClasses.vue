@@ -100,7 +100,7 @@
               let type = res.data === -1 ? 'error' : 'success';
               let title = res.data === -1 ? 'Echec' : 'Succès';
               let text = res.data === -1 ? "Echec de l'ajout" : "Classe ajoutée"; 
-                scope.GetClasses();
+                scope.GetClasses(); 
                 this.$notify({
                   group: 'app',
                   type,

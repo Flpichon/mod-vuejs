@@ -25,13 +25,13 @@
                     <v-text-field v-model="editedEleve.nom" label="nom"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedEleve.nom" label="prenom"></v-text-field>
+                    <v-text-field v-model="editedEleve.prenom" label="prenom"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedEleve.nom" label="date de naissance"></v-text-field>
+                    <v-text-field v-model="editedEleve.date_naissance" label="date de naissance"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedEleve.nom" label="classe"></v-text-field>
+                    <v-select  :items="classes" item-text="complet" item-value="id" v-model="editedEleve.classe" label="classe"></v-select>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -86,6 +86,7 @@ export default {
   data: () => {
         return {
           dialog: false,
+          classes: [],
           headers: [
             {
               text: 'Eleve',
@@ -99,7 +100,6 @@ export default {
             { text: 'numero', value: 'classeNumero'},
             { text: 'Actions', value: 'name', sortable: false }
           ],
-          classes: [],
           items: [],
           editedEleve: {
             "nom": "",
@@ -110,8 +110,18 @@ export default {
   },
   mounted() {
     this.GetEleves();
+    this.GetClasses();
   },
   methods: {
+    GetClasses() {
+    let scope = this;
+    axios
+    .post("/api/api.php?cas=getclasse")
+    .then(res => {
+      res.data.map(data => data.complet = data.libelle+' '+data.numero);
+      scope.classes = (res.data);
+    });
+    },
      Close () {
         this.dialog = false;
         setTimeout(() => {
@@ -126,7 +136,6 @@ export default {
         .post("/api/api.php?cas=geteleve")
         .then(res => {
             res.data.map(eleve => eleve.date_naissance = moment(eleve.date_naissance).format('L'));
-            console.log(res.data);
             scope.items = (res.data);
         });
   },
