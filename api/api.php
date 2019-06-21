@@ -72,6 +72,20 @@ if (isset($_GET["cas"])) {
         $eleve->Add();
         echo 'ok';
         break;
+
+        // EDIT ELEVE
+        case 'editeleve':
+        $eleve = new eleve;
+        $item = json_decode(file_get_contents('php://input'), true);
+        $eleve->id = $_GET['id'];
+        $eleve->Load();
+        $eleve->nom = $item['nom'];
+        $eleve->prenom = $item['prenom'];
+        $eleve->date_naissance = $item['date_naissance'];
+        $eleve->id_classe = $item['classe'];
+        $eleve->Update();
+        echo "ok";
+        break;
     }
 
 }

@@ -56,7 +56,8 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="blue darken-1" flat @click="Close">Annuler</v-btn>
-              <v-btn color="blue darken-1" flat @click="Add(editedEleve)">Enregistrer</v-btn>
+              <v-btn v-if="editedEleve.onEdit !== true" color="blue darken-1" flat @click="Add(editedEleve)">Enregistrer</v-btn>
+               <v-btn v-else color="blue darken-1" flat @click="Modif(editedEleve)">Modifer</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -95,7 +96,7 @@
 </div>
 </template>
 <script>
-import moment from 'moment'
+import moment, { localeData } from 'moment'
 moment.locale('fr');
 export default {
   data: () => {
@@ -142,6 +143,14 @@ export default {
               this.GetEleves();
              })
     },
+    Modif(eleve) {
+       axios
+            .post(`/api/api.php?cas=editeleve&id=${eleve.id}`, eleve)
+            .then(res => {
+              this.Close();
+              this.GetEleves();
+            })
+    },
     GetClasses() {
     let scope = this;
     axios
@@ -162,7 +171,14 @@ export default {
         }, 300)
         },
     Modifier(item) {
-      console.log(item);
+      let dateok = moment(item.date_naissance, "DD-MM-YYYY").toDate();
+      this.editedEleve.nom = item.nom;
+      this.editedEleve.prenom = item.prenom;
+      this.editedEleve.date_naissance = dateok.toISOString().substr(0, 10);
+      this.editedEleve.classe = item.classeId;
+       this.editedEleve.id = item.id;
+      this.dialog = true;
+      this.editedEleve.onEdit = true;
     },
     GetEleves() {
         let scope = this;
