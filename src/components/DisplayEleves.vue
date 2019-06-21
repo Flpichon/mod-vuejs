@@ -167,6 +167,7 @@ export default {
           this.editedEleve.prenom = "Eleve";
           this.editedEleve.date_naissance = new Date().toISOString().substr(0, 10);
           this.editedEleve.classe = 0;
+          this.editedEleve.onEdit = false;
           this.editedClasse = -1
         }, 300)
         },

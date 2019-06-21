@@ -150,6 +150,8 @@
             axios
             .post(`/api/api.php?cas=deleteclasse&idclasse=${itemId}`)
             .then(res => {
+                console.log(res);
+                if (res.data !== 0) {
                 scope.GetClasses();
                 this.$notify({
                   group: 'app',
@@ -158,6 +160,15 @@
                   title: 'Suppression Effectuée',
                   text: 'La classe : '+res.data+' a été supprimée'
                 });
+                } else {
+                  this.$notify({
+                  group: 'app',
+                  type: 'error',
+                  width : 800,
+                  title: 'Echec de le suppression',
+                  text: 'La classe ne peut pas être supprimée : il reste encore des élèves attachés'
+                });
+                }
             })
           }
         })

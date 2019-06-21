@@ -47,8 +47,16 @@ if (isset($_GET["cas"])) {
         $classe = new classe;
         $classe->id = $_GET['idclasse'];
         $classe->Load();
-        $classe->Delete();
-        echo $classe->libelle;
+        $req = "SELECT count(*) as countEleve FROM eleve WHERE eleve.id_classe = $classe->id and eleve.suppr = 0";
+        $champs = array("countEleve");
+        $res = $classe->StructList($req,$champs,"array");
+        if ($res[0]['countEleve'] !== '0') {
+            echo 0;
+            return ;
+        }
+       $classe->Delete();
+       echo 1;
+       break;
 
         //GET ELEVES
         case 'geteleve':
