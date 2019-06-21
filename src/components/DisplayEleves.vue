@@ -75,6 +75,7 @@
           <td class="text-xs">{{ props.item.classeNumero }}</td>
           <td class="justify-center layout px-0">
             <v-icon
+              @click="Modifier(props.item)"
               small
               class="mr-2"
             >
@@ -160,6 +161,9 @@ export default {
           this.editedClasse = -1
         }, 300)
         },
+    Modifier(item) {
+      console.log(item);
+    },
     GetEleves() {
         let scope = this;
         axios
