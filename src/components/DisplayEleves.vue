@@ -1,6 +1,4 @@
 <template>
-    <div id="app">
-  <v-app id="inspire">
     <div>
       <v-toolbar flat color="white">
         <v-toolbar-title>Gestion des élèves</v-toolbar-title>
@@ -16,7 +14,7 @@
           </template>
           <v-card>
             <v-card-title>
-              <span class="headline">toto</span>
+              <span class="headline">{{editedEleve.nom }} {{editedEleve.prenom}}</span>
             </v-card-title>
             <v-card-text>
               <v-container grid-list-md>
@@ -28,7 +26,26 @@
                     <v-text-field v-model="editedEleve.prenom" label="prenom"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedEleve.date_naissance" label="date de naissance"></v-text-field>
+                    <v-menu
+                    v-model="menu1"
+                    :close-on-content-click="false"
+                    full-width
+                    max-width="290"
+                    >
+                <template v-slot:activator="{ on }">
+                <v-text-field
+                  :value="computedDateFormattedMomentjs"
+                  clearable
+                  label="date de naissance"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+                <v-date-picker
+                locale='fr'
+                v-model="editedEleve.date_naissance"
+                @change="menu1 = false"
+                ></v-date-picker>
+              </v-menu>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
                     <v-select  :items="classes" item-text="complet" item-value="id" v-model="editedEleve.classe" label="classe"></v-select>
@@ -36,11 +53,10 @@
                 </v-layout>
               </v-container>
             </v-card-text>
-  
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" flat @click="Close">Cancel</v-btn>
-              <v-btn color="blue darken-1" flat @click="Close">Save</v-btn>
+              <v-btn color="blue darken-1" flat @click="Close">Annuler</v-btn>
+              <v-btn color="blue darken-1" flat @click="Add(editedEleve)">Enregistrer</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -75,8 +91,6 @@
           <v-btn color="primary">Reset</v-btn>
         </template>
       </v-data-table>
-    </div>
-  </v-app>
 </div>
 </template>
 <script>
@@ -85,6 +99,7 @@ moment.locale('fr');
 export default {
   data: () => {
         return {
+          menu1: false,
           dialog: false,
           classes: [],
           headers: [
@@ -102,17 +117,30 @@ export default {
           ],
           items: [],
           editedEleve: {
-            "nom": "",
-            "prenom": "",
-            "date_naissance": "",
+            "nom": "Nouvel",
+            "prenom": "Eleve",
+            "date_naissance": new Date().toISOString().substr(0, 10),
           },
         }
+  },
+  computed: {
+    computedDateFormattedMomentjs () {
+      return this.editedEleve.date_naissance ? moment(this.editedEleve.date_naissance).format('L') : ''
+    },
   },
   mounted() {
     this.GetEleves();
     this.GetClasses();
   },
   methods: {
+    Add(data) {
+       axios
+          .post(`/api/api.php?cas=addeleve`, data)
+            .then(res => { 
+              this.Close();
+              this.GetEleves();
+             })
+    },
     GetClasses() {
     let scope = this;
     axios
@@ -125,8 +153,10 @@ export default {
      Close () {
         this.dialog = false;
         setTimeout(() => {
-          this.editedClasse.numero = 0;
-          this.editedClasse.libelle = "";
+          this.editedEleve.nom = "Nouvel";
+          this.editedEleve.prenom = "Eleve";
+          this.editedEleve.date_naissance = new Date().toISOString().substr(0, 10);
+          this.editedEleve.classe = 0;
           this.editedClasse = -1
         }, 300)
         },

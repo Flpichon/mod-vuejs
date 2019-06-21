@@ -60,6 +60,18 @@ if (isset($_GET["cas"])) {
         $res = $eleve->StructList($req,$champs,"json");
         echo $res;
         break;
+
+        //ADD ELEVE
+        case 'addeleve':
+        $eleve = new eleve;
+        $item = json_decode(file_get_contents('php://input'), true);
+        $eleve->nom = $item['nom'];
+        $eleve->prenom = $item['prenom'];
+        $eleve->date_naissance = $item['date_naissance'];
+        $eleve->id_classe = $item['classe'];
+        $eleve->Add();
+        echo 'ok';
+        break;
     }
 
 }
