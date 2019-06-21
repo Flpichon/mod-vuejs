@@ -1,5 +1,6 @@
 import '@babel/polyfill'
 import 'mutationobserver-shim'
+import moment from 'moment'
 import Vue from 'vue'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
@@ -36,6 +37,7 @@ Vue.use(VuetifyDialog, {
 new Vue({
   router,
   store,
+  moment,
   render: h => h(App)
 }).$mount('#app')
 

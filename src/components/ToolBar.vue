@@ -1,7 +1,11 @@
 <template>
       <v-content>
       <v-navigation-drawer
+<<<<<<< HEAD
         :clipped="clipped" v-model="drawer" enable-resize-watcher :hide-overlay=false app dark
+=======
+        :clipped="clipped" v-model="drawer" enable-resize-watcher :hide-overlay=false app class="light"
+>>>>>>> 7a7ee029eb33410fb47c7e971fd0241d026505c4
       >
               <v-toolbar flat class="transparent">
           <v-list class="pa-0">
@@ -43,7 +47,7 @@
       menu: [
         { icon: "home", title: "Home", link: "/" },
         { icon: "info", title: "About", link: "/about" },
-        { icon: "warning", title: "Link C" }
+        { icon: "info", title: "Eleves", link: "/eleve" }
             ]
         };
     },
