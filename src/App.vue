@@ -2,7 +2,7 @@
   <div id="app">
     <v-app light id="inspire">
               <ToolBar/>
-      <v-parallax class="parallax" src="/src/assets/1511.jpg">
+      <v-parallax class="parallax" src="/src/assets/6530.jpg">
         <v-content>
         <v-container>
         <notifications group="app" />
