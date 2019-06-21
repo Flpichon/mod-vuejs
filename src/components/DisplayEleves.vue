@@ -54,7 +54,7 @@
           <td class="text-xs">{{ props.item.id }}</td>
           <td class="text-xs">{{ props.item.nom }}</td>
           <td class="text-xs">{{ props.item.prenom }}</td>
-          <td class="text-xs">{{ props.item.dateNaissance }}</td>
+          <td class="text-xs">{{ props.item.date_naissance }}</td>
           <td class="text-xs">{{ props.item.classeLibelle }}</td>
           <td class="text-xs">{{ props.item.classeNumero }}</td>
           <td class="justify-center layout px-0">
@@ -80,6 +80,8 @@
 </div>
 </template>
 <script>
+import moment from 'moment'
+moment.locale('fr');
 export default {
   data: () => {
         return {
@@ -92,7 +94,7 @@ export default {
             },
             { text: 'nom', value: 'nom' },
             { text: 'prenom', value: 'prenom' },
-            { text: 'date de naissance', value: 'dateNaissance' },
+            { text: 'date de naissance', value: 'date_naissance' },
             { text: 'classe', value: 'classeLibelle' },
             { text: 'numero', value: 'classeNumero'},
             { text: 'Actions', value: 'name', sortable: false }
@@ -102,7 +104,7 @@ export default {
           editedEleve: {
             "nom": "",
             "prenom": "",
-            "dateNaissance": "",
+            "date_naissance": "",
           },
         }
   },
@@ -123,6 +125,7 @@ export default {
         axios
         .post("/api/api.php?cas=geteleve")
         .then(res => {
+            res.data.map(eleve => eleve.date_naissance = moment(eleve.date_naissance).format('L'));
             console.log(res.data);
             scope.items = (res.data);
         });
