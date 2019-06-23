@@ -34,8 +34,8 @@
 
 	$URL_HOME = "http://localhost/Mod-Project-Eleve/";
 	define("URL_HOME",$URL_HOME);
-
 	include(__DIR__."/genos.php");
+	include(__DIR__."/../1-class/projet.php");
 	include(__DIR__."/../1-class/classe.class.php");
 	include(__DIR__."/../1-class/eleve.class.php");
 	include(__DIR__."/../1-class/matiere.class.php");

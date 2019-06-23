@@ -1,7 +1,6 @@
 <?php 
 
-class note{
-    use genos;
+class note extends projet{
     public $id;
     public $date;
     public $id_eleve;

@@ -1,7 +1,6 @@
 <?php 
 
-class matiere{
-    use genos;
+class matiere extends projet{
     public $id;
     public $intitule;
     public $suppr;

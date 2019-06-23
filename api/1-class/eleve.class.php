@@ -1,7 +1,6 @@
 <?php 
 
-class eleve{
-    use genos;
+class eleve extends projet{
     public $id;
     public $nom;
     public $prenom;

@@ -1,7 +1,6 @@
 <?php 
 
-class classe{
-    use genos;
+class classe extends projet{
     public $id;
     public $libelle;
     public $numero;

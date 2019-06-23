@@ -150,7 +150,6 @@
             axios
             .post(`/api/api.php?cas=deleteclasse&idclasse=${itemId}`)
             .then(res => {
-                console.log(res);
                 if (res.data !== 0) {
                 scope.GetClasses();
                 this.$notify({

@@ -83,14 +83,12 @@
               edit
             </v-icon>
             <v-icon
+              @click="Delete(props.item)"
               small
             >
               delete
             </v-icon>
           </td>
-        </template>
-        <template v-slot:no-data>
-          <v-btn color="primary">Reset</v-btn>
         </template>
       </v-data-table>
 </div>
@@ -190,6 +188,23 @@ export default {
             scope.items = (res.data);
         });
   },
+  Delete(eleve) {
+      let eleveId = eleve.id;
+       this.$dialog.confirm({
+          text: 'Voulez vous vraiment supprimer cet élève ?',
+          title: 'Attention',
+      })
+      .then(conf => {
+        if (conf) {
+          axios
+          .post(`/api/api.php?cas=deleteeleve&ideleve=${eleveId}`)
+            .then(res => {
+              this.GetEleves();
+              console.log(res);
+            })
+        }
+      })
+  }
 }
 }
 </script>
