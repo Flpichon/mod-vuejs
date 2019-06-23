@@ -1,5 +1,30 @@
 <template>
      <v-container fluid grid-list-md>
+        <v-dialog v-model="dialog" persistent max-width="600px">
+        <v-card>
+          <v-card-title>
+            <span class="headline">Matières</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container grid-list-md>
+              <v-layout wrap>
+                <v-flex xs12 sm6>
+                  <v-autocomplete v-model="selectedMatiere"
+                    :items="matieres" item-text="intitule" item-value="id"
+                    label="matieres"
+                    multiple
+                  ></v-autocomplete>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" flat @click="Close()">Close</v-btn>
+            <v-btn color="blue darken-1" flat @click="ManageMatiere(selectedMatiere)">Save</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
        <v-btn @click="AddRow()">Ajouter une classe</v-btn>
       <v-data-iterator
         :items="items"
@@ -49,6 +74,12 @@
                   <v-list-tile-content>Nombre d'élèves:</v-list-tile-content>
                   <v-list-tile-content class="align-end">{{ props.item.nb_eleve }}</v-list-tile-content>
                 </v-list-tile>
+                <v-list-tile v-if="props.item.isNew !== true">
+                  <v-list-tile-content>Gérer les matières</v-list-tile-content>
+                  <v-btn  small v-if="props.item.isNew !== true" @click="openManageMatiere(props.item)" fab dark right color="cyan">
+                    <v-icon dark>edit</v-icon>
+                  </v-btn>
+                </v-list-tile>
               </v-list>
             </v-card>
           </v-flex>
@@ -61,23 +92,25 @@
   export default {
     data: () => {
         return {
+        dialog: false,
         rowPageText: 'éléments par page:',
         rowsPerPageItems: [8, 24, 32,  { text: "$vuetify.dataIterator.rowsPerPageAll", value: -1 }],
         pagination: {
         rowsPerPage: 8
         },
         items:[],
+        matieres:[],
+        selectedMatiere: ['1','2','3'],
         }
     },
     mounted(){
         this.GetClasses();
+        this.GetMatieres();
     },
     methods:{
         Close () {
-        this.dialogo = false;
+        this.dialog = false;
         setTimeout(() => {
-          this.editedClasse.numero = 0;
-          this.editedClasse.libelle = "";
           this.editedClasse = -1
         }, 300)
         },
@@ -109,6 +142,21 @@
                   text
                 });
             })
+        },
+        GetMatieres() {
+          axios
+           .post("/api/api.php?cas=getMatiere")
+            .then(res => {
+                this.matieres = (res.data);
+            });
+        },
+        GetClasseMatiere(classe) {
+          let classeId = classe.id;
+           axios
+            .post("/api/api.php?cas=getclassematiere&idclasse="+classeId)
+            .then(res => {
+                console.log(res.data);
+            });
         },
         GetClasses() {
 			      var scope = this;
@@ -171,7 +219,16 @@
             })
           }
         })
-    }
+       },
+        openManageMatiere(classe) {
+          this.editedClasse = classe;
+          this.dialog = true;
+        },
+        ManageMatiere(matieres) {
+          console.log(matieres);
+          console.log(this.editedClasse);
+          this.GetClasseMatiere(this.editedClasse);
+        }
     }
   }
 </script>

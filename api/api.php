@@ -4,103 +4,172 @@ if (isset($_GET["cas"])) {
     $cas = $_GET["cas"];
 
     switch  ($cas) {
-        // GETCLASSE
-        case 'getclasse':
-        $classe = new classe;
-        $req = "select classe.id as id, libelle, numero, classe.suppr, count(eleve.id) as nb_eleve 
-        from classe left join eleve on classe.id = eleve.id_classe 
-        where classe.suppr = 0 
-        group by classe.id 
-        order by numero";
-        $champs = array("id", "libelle", "numero", "nb_eleve");
-        $res = $classe->StructList($req,$champs,"json");
-        echo $res;
-        break;
 
-        // EDITCLASSE
-        case 'editclasse':
-        $classe = new classe;
-        $item = json_decode(file_get_contents('php://input'), true);
-        $classe->id = $_GET['idclasse'];
-        $classe->Load();
-        $classe->numero = $item['numero'];
-        $classe->libelle = $item['libelle'];
-        $classe->Update();
-        echo $classe->libelle; 
-        break;
+        // --- CLASSE ---
 
-        // ADDCLASSE
-        case 'addclasse':
-        $classe = new classe;
-        $item = json_decode(file_get_contents('php://input'), true);
-        if ($item['numero'] === 0 ) {
-            echo -1;
-            return;
-        }
-        $classe->numero = $item['numero'];
-        $classe->libelle = $item['libelle'];
-        $classe->Add();
-        echo $classe->libelle;
+                // GETCLASSE START
+                case 'getclasse':
+                $classe = new classe;
+                $req = "select classe.id as id, libelle, numero, classe.suppr, count(eleve.id) as nb_eleve 
+                from classe left join eleve on classe.id = eleve.id_classe 
+                where classe.suppr = 0 
+                group by classe.id 
+                order by numero";
+                $champs = array("id", "libelle", "numero", "nb_eleve");
+                $res = $classe->StructList($req,$champs,"json");
+                echo $res;
+                break;
+                // GETCLASSE END
 
-        //DELETECLASSE
-        case 'deleteclasse':
-        $classe = new classe;
-        $classe->id = $_GET['idclasse'];
-        $classe->Load();
-        $req = "SELECT count(*) as countEleve FROM eleve WHERE eleve.id_classe = $classe->id and eleve.suppr = 0";
-        $champs = array("countEleve");
-        $res = $classe->StructList($req,$champs,"array");
-        if ($res[0]['countEleve'] !== '0') {
-            echo 0;
-            return ;
-        }
-       $classe->Delete();
-       echo 1;
-       break;
+                // EDITCLASSE START
+                case 'editclasse':
+                $classe = new classe;
+                $item = json_decode(file_get_contents('php://input'), true);
+                $classe->id = $_GET['idclasse'];
+                $classe->Load();
+                $classe->numero = $item['numero'];
+                $classe->libelle = $item['libelle'];
+                $classe->Update();
+                echo $classe->libelle; 
+                break;
+                // EDITCLASSE END
 
-        //GET ELEVES
-        case 'geteleve':
-        $eleve = new eleve;
-        $req = "SELECT eleve.id, nom, prenom, date_naissance, classe.id as classeId, classe.libelle as classeLibelle, classe.numero as classeNumero 
-        FROM `eleve` join classe on eleve.id_classe = classe.id 
-        where eleve.suppr = 0";
-        $champs = array("id", "nom", "prenom", "date_naissance", "classeId", "classeLibelle", "classeNumero");
-        $res = $eleve->StructList($req,$champs,"json");
-        echo $res;
-        break;
+                // ADDCLASSE START
+                case 'addclasse':
+                $classe = new classe;
+                $item = json_decode(file_get_contents('php://input'), true);
+                if ($item['numero'] === 0 ) {
+                    echo -1;
+                    return;
+                }
+                $classe->numero = $item['numero'];
+                $classe->libelle = $item['libelle'];
+                $classe->Add();
+                echo $classe->libelle;
+                break;
+                // ADDCLASSE END
 
-        //ADD ELEVE
-        case 'addeleve':
-        $eleve = new eleve;
-        $item = json_decode(file_get_contents('php://input'), true);
-        $eleve->nom = $item['nom'];
-        $eleve->prenom = $item['prenom'];
-        $eleve->date_naissance = $item['date_naissance'];
-        $eleve->id_classe = $item['classe'];
-        $eleve->Add();
-        echo 'ok';
-        break;
+                //DELETECLASSE START
+                case 'deleteclasse':
+                $classe = new classe;
+                $classe->id = $_GET['idclasse'];
+                $classe->Load();
+                $req = "SELECT count(*) as countEleve FROM eleve WHERE eleve.id_classe = $classe->id and eleve.suppr = 0";
+                $champs = array("countEleve");
+                $res = $classe->StructList($req,$champs,"array");
+                if ($res[0]['countEleve'] !== '0') {
+                    echo 0;
+                    return ;
+                }
+                $classe->Delete();
+                echo 1;
+                break;
+                //DELETECLASSE END
 
-        // EDIT ELEVE
-        case 'editeleve':
-        $eleve = new eleve;
-        $item = json_decode(file_get_contents('php://input'), true);
-        $eleve->id = $_GET['id'];
-        $eleve->Load();
-        $eleve->nom = $item['nom'];
-        $eleve->prenom = $item['prenom'];
-        $eleve->date_naissance = $item['date_naissance'];
-        $eleve->id_classe = $item['classe'];
-        $eleve->Update();
-        echo "ok";
-        break;
+        // --- ELEVE ---
 
-        // DELETE ELEVE 
-        case 'deleteeleve':
-        $eleve = new eleve;
-        $eleve->id = $_GET['ideleve'];
-        $eleve->Delete();
-        break;
+                //GET ELEVES
+                case 'geteleve':
+                $eleve = new eleve;
+                $req = "SELECT eleve.id, nom, prenom, date_naissance, classe.id as classeId, classe.libelle as classeLibelle, classe.numero as classeNumero 
+                FROM `eleve` join classe on eleve.id_classe = classe.id 
+                where eleve.suppr = 0";
+                $champs = array("id", "nom", "prenom", "date_naissance", "classeId", "classeLibelle", "classeNumero");
+                $res = $eleve->StructList($req,$champs,"json");
+                echo $res;
+                break;
+
+                //ADD ELEVE
+                case 'addeleve':
+                $eleve = new eleve;
+                $item = json_decode(file_get_contents('php://input'), true);
+                $eleve->nom = $item['nom'];
+                $eleve->prenom = $item['prenom'];
+                $eleve->date_naissance = $item['date_naissance'];
+                $eleve->id_classe = $item['classe'];
+                $eleve->Add();
+                echo 'ok';
+                break;
+
+                // EDIT ELEVE
+                case 'editeleve':
+                $eleve = new eleve;
+                $item = json_decode(file_get_contents('php://input'), true);
+                $eleve->id = $_GET['id'];
+                $eleve->Load();
+                $eleve->nom = $item['nom'];
+                $eleve->prenom = $item['prenom'];
+                $eleve->date_naissance = $item['date_naissance'];
+                $eleve->id_classe = $item['classe'];
+                $eleve->Update();
+                echo "ok";
+                break;
+
+                // DELETE ELEVE 
+                case 'deleteeleve':
+                $eleve = new eleve;
+                $eleve->id = $_GET['ideleve'];
+                $eleve->Delete();
+                echo $eleve->nom;
+                break;
+
+        // MATIERE
+
+                // GET MATIERE START
+                case 'getMatiere':
+                $matiere = new matiere;
+                $req = "SELECT * FROM `matiere` WHERE matiere.suppr = 0";
+                $champs = array("id", "intitule");
+                $res = $matiere->StructList($req,$champs,"json");
+                echo $res;
+                break;
+                // GET MATIERE END
+
+                // ADD MATIERE START
+                case 'addmatiere':
+                $matiere = new matiere;
+                $item = json_decode(file_get_contents('php://input'), true);
+                $matiere->intitule = $item['intitule'];
+                $matiere->Add();
+                echo $matiere->intitule;
+                break;
+                // ADD MATIERE END
+
+                // MODIF MATIERE START
+                case 'editmatiere':
+                $matiere = new matiere;
+                $item = json_decode(file_get_contents('php://input'), true);
+                $matiere->id = $_GET['idmatiere'];
+                $matiere->Load();
+                $matiere->intitule = $item['intitule'];
+                $matiere->Update();
+                echo $matiere->intitule;              
+                break;
+                // MODIF MATIERE END
+
+                // DELETE MATIERE START
+                case 'deletematiere':
+                $matiere = new matiere;
+                $matiere->id = $_GET['idmatiere'];
+                $matiere->Delete();
+                echo $matiere->intitule;
+                break;
+                // DELETE MATIERE END
+
+        // CLASSE_MATIERE
+
+                // GET CLASSE_MATIERE (ID_CLASSE)
+                case 'getclassematiere':
+                $classe_matiere = new classe_matiere;
+                $classeId = $_GET['idclasse'];
+                $req = "SELECT classe.id as classeId, classe.libelle as classeLibelle, matiere.id as matiereId, matiere.intitule as matiereIntitule 
+                from classe join classe_matiere on classe.id = classe_matiere.id_classe join matiere on classe_matiere.id_matiere = matiere.id 
+                where classe.suppr = 0 and matiere.suppr = 0 and classe_matiere.suppr = 0 and classe.id = $classeId";
+                $champs = array("classeId", "classeLibelle", "matiereId", "matiereIntitule");
+                $res = $classe_matiere->StructList($req,$champs,"json");
+                echo $res;
+                break;
+
     }
 
 }

@@ -41,9 +41,10 @@
       drawer: true,
       clipped: false,
       menu: [
-        { icon: "home", title: "Home", link: "/" },
-        { icon: "info", title: "About", link: "/about" },
-        { icon: "info", title: "Eleves", link: "/eleve" }
+        { icon: "home", title: "Accueil", link: "/" },
+        { icon: "info", title: "Eleves", link: "/eleve" },
+        { icon: "info", title: "Matières", link: "/matiere" },
+        { icon: "info", title: "About", link: "/about" }
             ]
         };
     },

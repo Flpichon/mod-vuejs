@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Eleve from './views/Eleve.vue'
+import Matiere from './views/Matiere.vue'
 import NotFound from './views/NotFound'
 Vue.use(Router)
 
@@ -32,6 +33,11 @@ export default new Router({
       path: '/eleve',
       name: 'eleve',
       component: Eleve
+    },
+    {
+      path: '/matiere',
+      name: 'matiere',
+      component: Matiere
     },
   ]
 })

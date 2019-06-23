@@ -8,9 +8,9 @@
           vertical
         ></v-divider>
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" max-width="500px">
+        <v-dialog v-model="dialog" max-width="500px" persistent>
           <template v-slot:activator="{ on }">
-            <v-btn color="primary" dark class="mb-2" v-on="on">Nouvel élève</v-btn>
+            <v-btn class="mb-2" v-on="on">Ajouter un élève</v-btn>
           </template>
           <v-card>
             <v-card-title>
@@ -65,6 +65,8 @@
       <v-data-table
         :headers="headers"
         :items="items"
+        :rows-per-page-items="rowsPerPageItems"
+        :rows-per-page-text="rowPageText"
         class="elevation-1"
       >
         <template v-slot:items="props">
@@ -99,6 +101,8 @@ moment.locale('fr');
 export default {
   data: () => {
         return {
+          rowPageText: 'éléments par page:',
+          rowsPerPageItems: [8, 24, 32,  { text: "$vuetify.dataIterator.rowsPerPageAll", value: -1 }],
           menu1: false,
           dialog: false,
           classes: [],
@@ -200,7 +204,13 @@ export default {
           .post(`/api/api.php?cas=deleteeleve&ideleve=${eleveId}`)
             .then(res => {
               this.GetEleves();
-              console.log(res);
+              this.$notify({
+                  group: 'app',
+                  type: 'success',
+                  width : 800,
+                  title: 'Suppression Effectuée',
+                  text: "La l'élève : "+res.data+" a été supprimé"
+                });
             })
         }
       })
