@@ -158,18 +158,47 @@ if (isset($_GET["cas"])) {
 
         // CLASSE_MATIERE
 
-                // GET CLASSE_MATIERE (ID_CLASSE)
+                // GET CLASSE_MATIERE (ID_CLASSE) START
                 case 'getclassematiere':
                 $classe_matiere = new classe_matiere;
                 $classeId = $_GET['idclasse'];
-                $req = "SELECT classe.id as classeId, classe.libelle as classeLibelle, matiere.id as matiereId, matiere.intitule as matiereIntitule 
+                $req = "SELECT classe_matiere.id, classe.id as classeId, classe.libelle as classeLibelle, matiere.id as matiereId, matiere.intitule as matiereIntitule 
                 from classe join classe_matiere on classe.id = classe_matiere.id_classe join matiere on classe_matiere.id_matiere = matiere.id 
-                where classe.suppr = 0 and matiere.suppr = 0 and classe_matiere.suppr = 0 and classe.id = $classeId";
-                $champs = array("classeId", "classeLibelle", "matiereId", "matiereIntitule");
+                where classe_matiere.suppr = 0 and classe.suppr = 0 and matiere.suppr = 0 and classe_matiere.suppr = 0 and classe.id = $classeId";
+                $champs = array("id", "classeId", "classeLibelle", "matiereId", "matiereIntitule");
                 $res = $classe_matiere->StructList($req,$champs,"json");
                 echo $res;
                 break;
+                // GET CLASSE_MATIERE (ID_CLASSE) END
 
+                // EDIT GET CLASSE_MATIERE START
+                case 'editselectedmatiere';
+                $classe_matiere = new classe_matiere;
+                $classe_matiere->id_classe = $_GET['idclasse'];
+                $classe_matiere->id_matiere = $_GET['idmatiere'];
+                $req = "SELECT * FROM `classe_matiere` WHERE id_classe = :id_classe and id_matiere = :id_matiere and classe_matiere.suppr = 1";
+                $bind = array ( "id_classe" => $_GET['idclasse'], "id_matiere" =>  $_GET['idmatiere']);
+                $fields = array ( "id" );
+                $res = $classe_matiere->StructList($req,$fields, $bind, "array");
+                if (empty($res)) {
+                    $classe_matiere->Add();
+                } else {
+                    $classe_matiere->id = $res[0]['id'];
+                    $classe_matiere->Load();
+                    $classe_matiere->suppr = 0;
+                    $classe_matiere->Update();
+                    echo 'ok';
+                }
+                break;
+                //
+
+                //
+                case 'deleteselectedmatiere';
+                $classe_matiere = new classe_matiere;
+                $classe_matiere->id = $_GET['id'];
+                $classe_matiere->Delete();
+                echo $classe_matiere->id;
+                break;
     }
 
 }

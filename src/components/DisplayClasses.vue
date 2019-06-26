@@ -20,8 +20,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click="Close()">Close</v-btn>
-            <v-btn color="blue darken-1" flat @click="ManageMatiere(selectedMatiere)">Save</v-btn>
+            <v-btn color="blue darken-1" flat @click="Close()">Fermer</v-btn>
+            <v-btn color="blue darken-1" flat @click="ManageMatiere(selectedMatiere)">Enregistrer</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -89,6 +89,7 @@
 </template>
 
 <script>
+import { maxHeaderSize } from 'http';
   export default {
     data: () => {
         return {
@@ -100,7 +101,8 @@
         },
         items:[],
         matieres:[],
-        selectedMatiere: ['1','2','3'],
+        selectedMatiere: [],
+        classeMatiereTab: []
         }
     },
     mounted(){
@@ -150,13 +152,27 @@
                 this.matieres = (res.data);
             });
         },
-        GetClasseMatiere(classe) {
+        GetSelectedClasseMatiere(classe) {
           let classeId = classe.id;
-           axios
+           return axios
             .post("/api/api.php?cas=getclassematiere&idclasse="+classeId)
             .then(res => {
-                console.log(res.data);
+              this.classeMatiereTab = Object.entries(res.data);
+              let index = [];
+              this.classeMatiereTab.map(cMT =>{
+                index.push(cMT[1].matiereId);
+                });
+              this.selectedMatiere = index;
+              return index;
             });
+        },
+        GetCurrentClasseMatiere(classe) {
+          let classeId = classe.id;
+           return axios
+            .post("/api/api.php?cas=getclassematiere&idclasse="+classeId)
+            .then(res => {
+              return res.data;
+            })
         },
         GetClasses() {
 			      var scope = this;
@@ -223,11 +239,34 @@
         openManageMatiere(classe) {
           this.editedClasse = classe;
           this.dialog = true;
+          this.GetSelectedClasseMatiere(this.editedClasse);
         },
         ManageMatiere(matieres) {
           console.log(matieres);
-          console.log(this.editedClasse);
-          this.GetClasseMatiere(this.editedClasse);
+          this.GetSelectedClasseMatiere(this.editedClasse)
+          .then(res => {
+            matieres.forEach(matiere => {
+              if (res.some(res => res === matiere)) { 
+              } else {
+                axios
+                .post(`/api/api.php?cas=editselectedmatiere&idclasse=${this.editedClasse.id}&idmatiere=${matiere}`)
+                .then(resu => {
+                  this.GetSelectedClasseMatiere(this.editedClasse);
+                })
+              }
+            });
+            res.forEach(res => {
+            let match = this.classeMatiereTab.find(cMT => cMT[1].classeId === this.editedClasse.id && cMT[1].matiereId === res) || null ;
+            if (!matieres.some(matiere => (matiere) === res)) {
+              console.log(match);
+              axios
+                .post(`/api/api.php?cas=deleteselectedmatiere&id=${match[1].id}`)
+                .then(resu => {
+                  this.GetSelectedClasseMatiere(this.editedClasse);
+                })
+            }
+          })
+          })
         }
     }
   }

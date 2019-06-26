@@ -6,8 +6,8 @@
         <v-toolbar flat class="transparent">
           <v-list class="pa-0">
             <v-list-tile avatar>
-              <v-list-tile-avatar>
-                <img src="https://randomuser.me/api/portraits/men/85.jpg">
+              <v-list-tile-avatar >
+                <img class="avatar" src="/src/assets/klass-blue-png.png">
               </v-list-tile-avatar>
             </v-list-tile>
           </v-list>
@@ -87,5 +87,11 @@
 .btn:hover{
     background-color:rgba(179, 165, 243, 0.513);;
     width: 90%;
+}
+.avatar {
+  width: 100px !important;
+  height: auto !important;
+  margin-top: 15px;
+  margin-left: 10px;
 }
 </style>
