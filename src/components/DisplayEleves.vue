@@ -1,7 +1,7 @@
 <template>
     <div>
       <v-toolbar flat color="white">
-        <v-toolbar-title>Gestion des élèves</v-toolbar-title>
+        <v-toolbar-title class="purple--text lighten-2">Gestion des élèves</v-toolbar-title>
         <v-divider
           class="mx-2"
           inset
@@ -10,7 +10,7 @@
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" max-width="500px" persistent>
           <template v-slot:activator="{ on }">
-            <v-btn class="mb-2" v-on="on">Ajouter un élève</v-btn>
+            <v-btn round class="purple-color mb-2" v-on="on">Ajouter un élève</v-btn>
           </template>
           <v-card>
             <v-card-title>
@@ -67,24 +67,24 @@
         :items="items"
         :rows-per-page-items="rowsPerPageItems"
         :rows-per-page-text="rowPageText"
-        class="elevation-1"
+        class="elevation-1 m-2"
       >
         <template v-slot:items="props">
-          <td class="text-xs">{{ props.item.id }}</td>
+          <td class="text-xs purple--text lighten-2">{{ props.item.id }}</td>
           <td class="text-xs">{{ props.item.nom }}</td>
           <td class="text-xs">{{ props.item.prenom }}</td>
           <td class="text-xs">{{ props.item.date_naissance }}</td>
           <td class="text-xs">{{ props.item.classeLibelle }}</td>
           <td class="text-xs">{{ props.item.classeNumero }}</td>
-          <td class="justify-center layout px-0">
-            <v-icon
+          <td class="justify-center layout px-0 m-2">
+            <v-icon color="primary"
               @click="Modifier(props.item)"
               small
               class="mr-2"
             >
               edit
             </v-icon>
-            <v-icon
+            <v-icon color="red"
               @click="Delete(props.item)"
               small
             >
@@ -218,3 +218,19 @@ export default {
 }
 }
 </script>
+<style lang="scss">
+.border {
+  border-radius: 5%;
+}
+.purple-color {
+   background-color: rgba(142, 93, 182, 0.664) !important; 
+   color: #FFFFFF !important;
+}
+.width100{
+  width: 100%;
+}
+.textbold{
+  font-weight: bold;
+}
+</style>
+ 

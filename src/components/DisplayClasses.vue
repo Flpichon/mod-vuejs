@@ -25,7 +25,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-       <v-btn @click="AddRow()">Ajouter une classe</v-btn>
+       <v-btn round class="purple-color" @click="AddRow()">Ajouter une classe</v-btn>
       <v-data-iterator
         :items="items"
         :rows-per-page-items="rowsPerPageItems"
@@ -42,10 +42,10 @@
             md4
             lg3
           >
-            <v-card :dark=props.item.isNew>
-                <v-card-title ><h4>{{ props.item.libelle | Majuscules }} {{ props.item.numero }}</h4>
+            <v-card :dark=props.item.isNew class="border">
+                <v-card-title class="text-xs-center"><h4 class="width100">{{ props.item.libelle | Majuscules }} {{ props.item.numero }}</h4>
                 <v-spacer></v-spacer>
-                <v-flex xs12 sm12>
+                <v-flex xs12 sm12 >
                   <v-btn  small v-if="props.item.isNew !== true" @click="ModifClasse(props.item)" fab dark  color="cyan">
                     <v-icon dark>edit</v-icon>
                   </v-btn>
@@ -60,23 +60,23 @@
                   </v-btn>
                 </v-flex>
               </v-card-title>
-              <v-divider></v-divider>
+              <v-divider class="m-3 purple--light"></v-divider>
               <v-list dense>
                 <v-list-tile>
-                  <v-list-tile-content>Numéro:</v-list-tile-content>
-                  <v-list-tile-content class="align-end"><input type="number" :min=0 v-model="props.item.numero"></v-list-tile-content>
+                  <v-list-tile-content class="textbold">Numéro:</v-list-tile-content>
+                  <v-list-tile-content class="align-end"><input class="text-xs-right" type="number" :min=0 v-model="props.item.numero"></v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile>
-                  <v-list-tile-content>Libellé:</v-list-tile-content>
-                  <v-list-tile-content class="align-end"><input v-model="props.item.libelle"></v-list-tile-content>
+                  <v-list-tile-content class="textbold">Libellé:</v-list-tile-content>
+                  <v-list-tile-content class="align-end"><input class="text-xs-right" v-model="props.item.libelle"></v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile>
-                  <v-list-tile-content>Nombre d'élèves:</v-list-tile-content>
+                  <v-list-tile-content class="textbold">Nombre d'élèves:</v-list-tile-content>
                   <v-list-tile-content class="align-end">{{ props.item.nb_eleve }}</v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile v-if="props.item.isNew !== true">
-                  <v-list-tile-content>Gérer les matières</v-list-tile-content>
-                  <v-btn  small v-if="props.item.isNew !== true" @click="openManageMatiere(props.item)" fab dark right color="cyan">
+                  <v-list-tile-content class="textbold">Gérer les matières</v-list-tile-content>
+                  <v-btn class="iconsmall" right absolute v-if="props.item.isNew !== true" @click="openManageMatiere(props.item)" fab dark color="cyan">
                     <v-icon dark>edit</v-icon>
                   </v-btn>
                 </v-list-tile>
@@ -271,3 +271,22 @@ import { maxHeaderSize } from 'http';
     }
   }
 </script>
+<style lang="scss">
+.border {
+  border-radius: 5%;
+}
+.purple-color {
+   background-color: rgba(142, 93, 182, 0.664) !important; 
+   color: #FFFFFF !important;
+}
+.width100{
+  width: 100%;
+}
+.iconsmall{
+  width: 30px;
+  height: 30px;
+}
+.textbold{
+  font-weight: bold;
+}
+</style>

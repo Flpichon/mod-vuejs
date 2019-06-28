@@ -4,15 +4,11 @@
         :clipped="clipped" v-model="drawer" enable-resize-watcher :hide-overlay=false app dark
       >
         <v-toolbar flat class="transparent">
-          <v-list class="pa-0">
-            <v-list-tile avatar>
-              <v-list-tile-avatar >
+          <v-list class="">
                 <img class="avatar" src="/src/assets/klass-blue-png.png">
-              </v-list-tile-avatar>
-            </v-list-tile>
           </v-list>
         </v-toolbar >
-          <v-divider></v-divider>
+          <v-divider class="mt-5"></v-divider>
           <v-list-tile class="slow-transition m-2 btn"
             v-for="item in menu"
             :key="item.title"
@@ -89,9 +85,9 @@
     width: 90%;
 }
 .avatar {
-  width: 100px !important;
+  width: 150px !important;
   height: auto !important;
-  margin-top: 15px;
-  margin-left: 10px;
+  margin-top: 0px;
+  margin-left: 0px;
 }
 </style>
