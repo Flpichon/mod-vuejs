@@ -78,6 +78,20 @@
           <td class="text-xs">{{ props.item.classeNumero }}</td>
           <td class="justify-center layout px-0 m-2">
             <v-icon color="primary"
+              @click="Send(props.item)"
+              small
+              class="mr-2"
+            >
+              edit
+            </v-icon>
+            <v-icon color="red"
+              small
+            >
+              delete
+            </v-icon>
+          </td>
+          <td class="justify-center">
+            <v-icon color="primary"
               @click="Modifier(props.item)"
               small
               class="mr-2"
@@ -117,7 +131,8 @@ export default {
             { text: 'date de naissance', value: 'date_naissance' },
             { text: 'classe', value: 'classeLibelle' },
             { text: 'numero', value: 'classeNumero'},
-            { text: 'Actions', value: 'name', sortable: false }
+            { text: 'Notes', value: 'eleve', sortable: false },
+            { text: 'Actions', value: 'name', sortable: false },
           ],
           items: [],
           editedEleve: {
@@ -137,6 +152,12 @@ export default {
     this.GetClasses();
   },
   methods: {
+    Send(eleve) {
+      this.$store.commit('setEleve', {
+        eleve
+      });
+      console.log(this.$store.state.eleve);
+    },
     Add(data) {
        axios
           .post(`/api/api.php?cas=addeleve`, data)

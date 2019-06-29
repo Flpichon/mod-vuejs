@@ -242,7 +242,6 @@ import { maxHeaderSize } from 'http';
           this.GetSelectedClasseMatiere(this.editedClasse);
         },
         ManageMatiere(matieres) {
-          console.log(matieres);
           this.GetSelectedClasseMatiere(this.editedClasse)
           .then(res => {
             matieres.forEach(matiere => {
@@ -258,7 +257,6 @@ import { maxHeaderSize } from 'http';
             res.forEach(res => {
             let match = this.classeMatiereTab.find(cMT => cMT[1].classeId === this.editedClasse.id && cMT[1].matiereId === res) || null ;
             if (!matieres.some(matiere => (matiere) === res)) {
-              console.log(match);
               axios
                 .post(`/api/api.php?cas=deleteselectedmatiere&id=${match[1].id}`)
                 .then(resu => {
