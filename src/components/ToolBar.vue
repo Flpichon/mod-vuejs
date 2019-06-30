@@ -4,8 +4,8 @@
         :clipped="clipped" v-model="drawer" enable-resize-watcher :hide-overlay=false app dark
       >
         <v-toolbar flat class="transparent">
-          <v-list class="">
-                <img class="avatar" src="/src/assets/klass-blue-png.png">
+          <v-list v-model="currentImg" class="">
+                <img  @click="changeImg()" class="avatar" :src="currentImg">
           </v-list>
         </v-toolbar >
           <v-divider class="mt-5"></v-divider>
@@ -34,8 +34,15 @@
   export default {
     data() {
     return {
+      i:0,
+      currentImg:"",
       drawer: true,
       clipped: false,
+      img: [
+      {img: '/src/assets/klass-blue-png.png'},
+      {img: '/src/assets/klass-green-png.png'},
+      {img: '/src/assets/klass-red-png.png'}
+      ],
       menu: [
         { icon: "home", title: "Accueil", link: "/" },
         { icon: "info", title: "Eleves", link: "/eleve" },
@@ -44,13 +51,44 @@
             ]
         };
     },
-
+    mounted() {
+      this.currentImg = this.changeImg();
+    },
     methods: {
+
         menuItems() {
         return this.menu;
         },
         Redirect(link) {
           this.$router.push(link) 
+        },
+        imgList(){
+        return this.img;
+        },
+        changeImg(){
+          let oldImg = this.currentImg;
+          let rand = Math.random();
+          let totalImg = this.img.length;
+          let randIndex = Math.floor(rand * totalImg);
+          let randomImg = this.img[randIndex].img;
+          let i = 0;
+          if (randomImg === oldImg)
+            {
+              if (randIndex !== this.img.length-1) {
+                randomImg = this.img[randIndex + 1].img;
+              } else {
+                randomImg = this.img[0].img;
+              }
+            }
+            this.i ++;
+            
+            console.log(this.i);
+          this.currentImg = randomImg;
+            if (this.i >= 28)
+            {
+              this.currentImg = "/src/assets/truc.gif";
+            }
+          return randomImg;
         }
     }
   }
