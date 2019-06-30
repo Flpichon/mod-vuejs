@@ -80,9 +80,7 @@
                 randomImg = this.img[0].img;
               }
             }
-            this.i ++;
-            
-            console.log(this.i);
+          this.i ++;
           this.currentImg = randomImg;
             if (this.i >= 28)
             {

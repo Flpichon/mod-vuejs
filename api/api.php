@@ -114,7 +114,18 @@ if (isset($_GET["cas"])) {
                 break;
 
         // MATIERE
-
+                //GET MATIERE_ELEVES
+                case 'getmatiereeleve':
+                $matiere = new matiere;
+                $req = "select ma.intitule as intitule, ma.id as id
+                from matiere ma join classe_matiere cm on ma.id = cm.id_matiere join classe cl on cm.id_classe = cl.id join eleve e on cl.id = e.id_classe 
+                where e.suppr = 0 and cl.suppr = 0 and ma.suppr = 0 and cm.suppr = 0 and e.id = :id_eleve";
+                $bind = array ( "id_eleve" => $_GET['ideleve']);
+                $fields = array ( "id", "intitule" );
+                $res = $matiere->StructList($req, $fields, $bind, "json");
+                echo $res;
+                break;
+                //
                 // GET MATIERE START
                 case 'getMatiere':
                 $matiere = new matiere;
@@ -198,6 +209,19 @@ if (isset($_GET["cas"])) {
                 $classe_matiere->id = $_GET['id'];
                 $classe_matiere->Delete();
                 echo $classe_matiere->id;
+                break;
+        // NOTES
+                
+                //GET NOTES ELEVE MATIERE
+                case 'getnotesmatiereeleve':
+                $note = new note;
+                $req = "SELECT n.id as id, n.valeur as valeur 
+                from note n inner join matiere m on n.id_matiere = m.id 
+                where n.id_eleve = :id_eleve and n.id_matiere = :id_matiere and m.suppr = 0 and  n.suppr = 0";
+                $bind = array ( "id_eleve" => $_GET['ideleve'], "id_matiere" => $_GET["idmatiere"]);
+                $fields = array ( "id", "valeur" );
+                $res = $note->StructList($req, $fields, $bind, "json");
+                echo $res;
                 break;
     }
 
