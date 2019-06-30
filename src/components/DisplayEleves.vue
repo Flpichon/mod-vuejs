@@ -82,14 +82,8 @@
               small
               class="mr-2"
             >
-              edit
+              visibility
             </v-icon>
-            <v-icon color="red"
-              small
-            >
-              delete
-            </v-icon>
-          </td>
           <td class="justify-center">
             <v-icon color="primary"
               @click="Modifier(props.item)"
@@ -156,7 +150,6 @@ export default {
       this.$store.commit('setEleve', {
         eleve
       });
-      console.log(this.$store.state.eleve);
     },
     Add(data) {
        axios
