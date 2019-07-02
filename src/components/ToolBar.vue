@@ -1,31 +1,29 @@
 <template>
       <v-content>
-      <v-navigation-drawer
-        :clipped="clipped" v-model="drawer" enable-resize-watcher :hide-overlay=false app dark
-      >
-        <v-toolbar flat class="transparent">
-          <v-list v-model="currentImg" class="">
-                <img  @click="changeImg()" class="avatar" :src="currentImg">
-          </v-list>
-        </v-toolbar >
-          <v-divider class="mt-5"></v-divider>
-          <v-list-tile class="slow-transition m-2 btn"
-            v-for="item in menu"
-            :key="item.title"
-            @click="Redirect(item.link)"
-          >
-            <v-list-tile-action>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-      </v-navigation-drawer>
-    <v-toolbar status fixed app :clipped-left="clipped"  class="deep-purple darken-2">
-        <v-toolbar-side-icon class="white--text" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-        <v-toolbar-title class="white--text font-weight-thin">Gestion d'élèves</v-toolbar-title>
-    </v-toolbar>
+        <v-navigation-drawer :clipped="clipped" v-model="drawer" enable-resize-watcher :hide-overlay=false app dark>
+          <v-toolbar flat class="transparent">
+            <v-list v-model="currentImg" class="">
+                  <img  @click="changeImg()" class="avatar" :src="currentImg">
+            </v-list>
+          </v-toolbar >
+            <v-divider class="mt-5"></v-divider>
+            <v-list-tile class="slow-transition m-2 btn"
+              v-for="item in menu"
+              :key="item.title"
+              @click="Redirect(item.link)"
+            >
+              <v-list-tile-action>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-tile-action>
+              <v-list-tile-content>
+                <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+        </v-navigation-drawer>
+        <v-toolbar status fixed app :clipped-left="clipped" :scroll-off-screen="true" class="deep-purple darken-2">
+            <v-toolbar-side-icon class="white--text" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+            <v-toolbar-title class="white--text font-weight-thin">Gestion d'élèves</v-toolbar-title>
+        </v-toolbar>
       </v-content>
 </template>
 

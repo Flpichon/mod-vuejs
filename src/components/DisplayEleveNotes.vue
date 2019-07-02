@@ -15,22 +15,17 @@
                 >{{item.intitule}}</v-btn>
                 </v-toolbar-items>
             </v-toolbar>
-            <v-list>
-                <v-list-tile
-                v-for="item in notes"
-                :key="item.id"
+                <v-data-table
+                :headers="headers"
+                :items="notes"
+                class="elevation-1"
                 >
-                <v-list-tile-action>
-                <v-icon v-if="item.id" color="pink">star</v-icon>
-                </v-list-tile-action>
-                 <v-list-tile-content>
-                <v-list-tile-title>Note</v-list-tile-title>
-                </v-list-tile-content>
-                <v-list-tile-content>
-                <v-list-tile-title v-text="item.valeur"></v-list-tile-title>
-                </v-list-tile-content>
-                </v-list-tile>
-            </v-list>
+                    <template v-slot:items="props">
+                        <td>{{ props.item.valeur }}</td>
+                        <td>{{ props.item.coefficient }}</td>
+                        <td>{{ props.item.description }}</td>
+                    </template>
+                </v-data-table>
             <v-card-actions>
                 <v-btn></v-btn>
             </v-card-actions>
@@ -44,6 +39,15 @@ export default {
         return {
             eleve: {},
             isEleve: false,
+            headers: [
+                {
+                    text: 'Note',
+                    align: 'left',
+                    value: 'valeur'
+                },
+                { text: 'Coefficient', align: 'left', value: 'coefficient' },
+                { text: 'Description', align: 'left', value: 'description' }
+            ],
             matiere: [],
             notes: []
         }
@@ -58,6 +62,7 @@ export default {
                     .post(`/api/api.php?cas=getmatiereeleve&ideleve=${this.$store.state.eleve.id}`)
                     .then(res => {
                         this.matiere = res.data;
+                        this.matiere.map(mat => this.GetNotes(mat.id));
                     });
                 }
                 return this.$store.state.eleve;

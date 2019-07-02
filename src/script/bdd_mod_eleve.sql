@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 26 juin 2019 à 21:41
+-- Généré le :  mar. 02 juil. 2019 à 21:55
 -- Version du serveur :  5.7.21
 -- Version de PHP :  7.1.16
 
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `classe_matiere` (
   PRIMARY KEY (`id`),
   KEY `classe_matiere_classe0_FK` (`id_classe`),
   KEY `id_matiere` (`id_matiere`,`id_classe`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `classe_matiere`
@@ -71,7 +71,11 @@ INSERT INTO `classe_matiere` (`id`, `id_matiere`, `id_classe`, `suppr`) VALUES
 (6, 1, 9, 0),
 (9, 3, 9, 1),
 (10, 1, 11, 0),
-(11, 4, 9, 0);
+(11, 4, 9, 0),
+(12, 5, 9, 0),
+(13, 4, 11, 0),
+(14, 5, 11, 0),
+(15, 3, 11, 0);
 
 -- --------------------------------------------------------
 
@@ -89,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `eleve` (
   `suppr` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `eleve_classe_FK` (`id_classe`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `eleve`
@@ -102,7 +106,11 @@ INSERT INTO `eleve` (`id`, `nom`, `prenom`, `date_naissance`, `id_classe`, `supp
 (5, 'test', 'Franck', '1993-12-13 00:00:00', 9, 1),
 (7, 'yoo', 'swag', '2019-06-21 00:00:00', 7, 0),
 (9, 'Nouvel', 'Eleve', '2019-06-23 00:00:00', 11, 0),
-(10, 'Nouvel', 'Eleve', '2019-06-23 00:00:00', 11, 0);
+(10, 'Nouvel', 'Eleve', '2019-06-23 00:00:00', 11, 0),
+(11, 'Nouvel', 'Eleve', '2019-07-02 00:00:00', 9, 0),
+(12, 'Nouvel', 'Eleve', '2019-07-02 00:00:00', 9, 0),
+(13, 'Nouvel', 'Eleve', '2019-07-02 00:00:00', 9, 0),
+(14, 'Nouvel', 'Eleve', '2019-07-02 00:00:00', 9, 1);
 
 -- --------------------------------------------------------
 
@@ -116,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `matiere` (
   `intitule` varchar(50) NOT NULL,
   `suppr` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `matiere`
@@ -126,7 +134,8 @@ INSERT INTO `matiere` (`id`, `intitule`, `suppr`) VALUES
 (1, 'français', 0),
 (2, 'Maths', 0),
 (3, 'SVT', 0),
-(4, 'Physique', 0);
+(4, 'Physique', 0),
+(5, 'Philosophie', 0);
 
 -- --------------------------------------------------------
 
@@ -137,14 +146,25 @@ INSERT INTO `matiere` (`id`, `intitule`, `suppr`) VALUES
 DROP TABLE IF EXISTS `note`;
 CREATE TABLE IF NOT EXISTS `note` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `date` datetime NOT NULL,
+  `valeur` float NOT NULL,
+  `description` varchar(100) NOT NULL,
   `id_eleve` int(11) NOT NULL,
   `id_matiere` int(11) NOT NULL,
   `suppr` int(11) NOT NULL DEFAULT '0',
+  `coefficient` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `note_eleve_FK` (`id_eleve`),
   KEY `note_matiere0_FK` (`id_matiere`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `note`
+--
+
+INSERT INTO `note` (`id`, `valeur`, `description`, `id_eleve`, `id_matiere`, `suppr`, `coefficient`) VALUES
+(1, 15, 'DM', 2, 1, 0, 1),
+(2, 20, 'DST', 2, 2, 0, 2),
+(3, 12, 'DST', 2, 1, 0, 2);
 
 --
 -- Contraintes pour les tables déchargées

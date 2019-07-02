@@ -1,13 +1,13 @@
 <template>
-  <div id="app">
+  <div id="app" class="background-img">
     <v-app light id="inspire">
         <notifications group="app" />
         <ToolBar/>
-        <v-parallax class="parallax" src="/src/assets/1511.jpg">
-        <v-content>
+        <v-content class="min-padding">
+          <v-container fluid>
             <router-view></router-view>
+          </v-container>
         </v-content>
-      </v-parallax>
       <Footer/>
     </v-app>
   </div>
@@ -31,8 +31,19 @@ export default {
 }
 </script>
 <style>
-.parallax {
-  height: 100% !important
+.background-img {
+  background-image: url("/src/assets/1511.jpg");
+  min-height: 500px; 
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#inspire {
+  background: none;
+}
+.min-padding {
+  padding-top: 0px !important;
 }
 </style>
 

@@ -215,11 +215,11 @@ if (isset($_GET["cas"])) {
                 //GET NOTES ELEVE MATIERE
                 case 'getnotesmatiereeleve':
                 $note = new note;
-                $req = "SELECT n.id as id, n.valeur as valeur 
+                $req = "SELECT n.id as id, n.valeur as valeur, description, coefficient 
                 from note n inner join matiere m on n.id_matiere = m.id 
                 where n.id_eleve = :id_eleve and n.id_matiere = :id_matiere and m.suppr = 0 and  n.suppr = 0";
                 $bind = array ( "id_eleve" => $_GET['ideleve'], "id_matiere" => $_GET["idmatiere"]);
-                $fields = array ( "id", "valeur" );
+                $fields = array ( "id", "valeur", "description", "coefficient" );
                 $res = $note->StructList($req, $fields, $bind, "json");
                 echo $res;
                 break;
