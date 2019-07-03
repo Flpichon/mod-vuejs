@@ -9,7 +9,7 @@ export default new Vuex.Store({
   },
   mutations: {
     setEleve(state, payload) {
-      state.eleve = payload.eleve
+      state.eleve = payload.eleve;
     }
   },
   actions: {

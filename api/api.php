@@ -215,13 +215,38 @@ if (isset($_GET["cas"])) {
                 //GET NOTES ELEVE MATIERE
                 case 'getnotesmatiereeleve':
                 $note = new note;
-                $req = "SELECT n.id as id, n.valeur as valeur, description, coefficient 
+                $req = "SELECT n.id as id, n.valeur as valeur, description, coefficient, intitule
                 from note n inner join matiere m on n.id_matiere = m.id 
                 where n.id_eleve = :id_eleve and n.id_matiere = :id_matiere and m.suppr = 0 and  n.suppr = 0";
                 $bind = array ( "id_eleve" => $_GET['ideleve'], "id_matiere" => $_GET["idmatiere"]);
-                $fields = array ( "id", "valeur", "description", "coefficient" );
+                $fields = array ( "id", "valeur", "description", "coefficient", "intitule" );
                 $res = $note->StructList($req, $fields, $bind, "json");
                 echo $res;
+                break;
+
+                // GET ALL NOTES
+                case 'getallnotesmatiereeleve':
+                $note = new note;
+                $req = "SELECT n.id as id, n.valeur as valeur, description, coefficient, intitule 
+                from note n inner join matiere m on n.id_matiere = m.id 
+                where n.id_eleve = :id_eleve and m.suppr = 0 and  n.suppr = 0";
+                $bind = array ( "id_eleve" => $_GET['ideleve']);
+                $fields = array ( "id", "valeur", "description", "coefficient", "intitule" );
+                $res = $note->StructList($req, $fields, $bind, "json");
+                echo $res;
+                break;
+
+                //ADD NOTES 
+                case 'addNote':
+                $note = new note;
+                $item = json_decode(file_get_contents('php://input'), true);
+                $note->valeur = $item['valeur'];
+                $note->coefficient = $item['coefficient'];
+                $note->description = $item['description'];
+                $note->id_eleve = $item['id_eleve'];
+                $note->id_matiere = $item['matiere'];
+                $note->Add();
+                echo 'ok';
                 break;
     }
 
