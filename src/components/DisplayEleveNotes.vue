@@ -18,10 +18,10 @@
               <v-container grid-list-md>
                 <v-layout wrap>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedNote.valeur" label="valeur"></v-text-field>
+                    <v-text-field type="number" v-model="editedNote.valeur" label="valeur"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="editedNote.coefficient" label="coefficient"></v-text-field>
+                    <v-text-field type="number" v-model="editedNote.coefficient" label="coefficient"></v-text-field>
                   </v-flex>
                     <v-flex xs12 sm6 md4>
                     <v-text-field v-model="editedNote.description" label="description"></v-text-field>
