@@ -77,9 +77,21 @@
             {{item.intitule}}
             </v-tab>
             </v-tabs>
+            <v-flex>
+            <v-text-field
+              v-model="search"
+              append-icon="search"
+              label="Recherche"
+              single-line
+              hide-details
+            ></v-text-field>
+            </v-flex>
                 <v-data-table
                 :headers="headers"
                 :items="notes"
+                :search="search"
+                :rows-per-page-items="rowsPerPageItems"
+                :rows-per-page-text="rowPageText"
                 class="elevation-1"
                 >
                     <template v-slot:items="props">
@@ -103,6 +115,16 @@
                           </v-icon>
                         </td>
                     </template>
+                    <template v-slot:no-data>
+                      <v-alert :value="true" color="warning" icon="warning">
+                        Aucune note saisie dans cette catégorie.
+                      </v-alert>
+                    </template>
+                            <template v-slot:no-results>
+        <v-alert :value="true" color="warning" icon="warning">
+          Aucun résultat trouvé :(
+        </v-alert>
+      </template>
                 </v-data-table>
         </v-card>
     </v-container>
@@ -112,11 +134,14 @@
 export default {
     data: () => {
         return {
+            search:'',
             eleve: {},
             menu1: false,
             dialog : false,
             isEleve: false,
             activeTab:0,
+             rowPageText: 'éléments par page:',
+          rowsPerPageItems: [8, 24, 32,  { text: "$vuetify.dataIterator.rowsPerPageAll", value: -1 }],
             headers: [
                 {
                     text: 'Note',
@@ -125,7 +150,7 @@ export default {
                 },
                 { text: 'Coefficient', align: 'left', value: 'coefficient' },
                 { text: 'Description', align: 'left', value: 'description' },
-                { text: 'Matière', align: 'left', value: 'matière' },
+                { text: 'Matière', align: 'left', value: 'intitule' },
                 { text: 'Actions', value: 'name', sortable: false },
             ],
             matieres: [],

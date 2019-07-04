@@ -8,6 +8,13 @@
           vertical
         ></v-divider>
         <v-spacer></v-spacer>
+              <v-text-field
+              v-model="search"
+              append-icon="search"
+              label="Recherche"
+              single-line
+              hide-details
+            ></v-text-field>
         <v-dialog v-model="dialog" max-width="500px" persistent>
           <template v-slot:activator="{ on }">
             <v-btn round class="purple-color mb-2" v-on="on">Ajouter un élève</v-btn>
@@ -65,6 +72,7 @@
       <v-data-table
         :headers="headers"
         :items="items"
+        :search="search"
         :rows-per-page-items="rowsPerPageItems"
         :rows-per-page-text="rowPageText"
         class="elevation-1 m-2"
@@ -100,7 +108,18 @@
             </v-icon>
           </td>
         </template>
+        <template v-slot:no-data>
+        <v-alert :value="true" color="warning" icon="warning">
+          Aucun élève renseigné
+        </v-alert>
+      </template>
+        <template v-slot:no-results>
+        <v-alert :value="true" color="warning" icon="warning">
+          Aucun résultat trouvé :(
+        </v-alert>
+      </template>
       </v-data-table>
+      
 </div>
 </template>
 <script>
@@ -109,6 +128,7 @@ moment.locale('fr');
 export default {
   data: () => {
         return {
+          search: '',
           rowPageText: 'éléments par page:',
           rowsPerPageItems: [8, 24, 32,  { text: "$vuetify.dataIterator.rowsPerPageAll", value: -1 }],
           menu1: false,
