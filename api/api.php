@@ -260,6 +260,15 @@ if (isset($_GET["cas"])) {
                 $note->description = $item['description'];
                 $note->Update();
                 echo $note->id;
+
+                //DELETE NOTE
+                case 'deletenote':
+                $note = new note;
+                $item = json_decode(file_get_contents('php://input'), true);
+                $note->id = $item['id'];
+                $note->Delete();
+                echo 'Suppr ok';
+
     }
 
 }

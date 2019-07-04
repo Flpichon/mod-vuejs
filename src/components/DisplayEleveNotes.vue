@@ -238,26 +238,27 @@ export default {
             .post(`/api/api.php?cas=editnote`, note)
             .then(res => {
               this.Close();
-              this.GetNotes(matiere.id);
+              this.GetNotes(999);
             })
         },
         Delete(note) {
        this.$dialog.confirm({
-          text: 'Voulez vous vraiment supprimer cet élève ?',
+          text: 'Voulez vous vraiment supprimer cette note ?',
           title: 'Attention',
       })
       .then(conf => {
         if (conf) {
+          let matiere = this.getMatiereByIntitule(note.intitule);
           axios
           .post(`/api/api.php?cas=deletenote`,note)
             .then(res => {
-              this.GetEleves();
+              this.GetNotes(999);
               this.$notify({
                   group: 'app',
                   type: 'success',
                   width : 800,
                   title: 'Suppression Effectuée',
-                  text: "La note : "+res.data+" a été supprimée"
+                  text: "La note a été supprimée"
                 });
             })
         }
