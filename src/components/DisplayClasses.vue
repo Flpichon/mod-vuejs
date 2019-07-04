@@ -251,6 +251,13 @@ import { maxHeaderSize } from 'http';
                 .post(`/api/api.php?cas=editselectedmatiere&idclasse=${this.editedClasse.id}&idmatiere=${matiere}`)
                 .then(resu => {
                   this.GetSelectedClasseMatiere(this.editedClasse);
+                  this.$notify({
+                  group: 'app',
+                  type: 'success',
+                  width : 800,
+                  title: 'Modifcations effectuées',
+                  text: 'Les matière de la classe ont été modifiées'
+                });
                 })
               }
             });
@@ -261,6 +268,13 @@ import { maxHeaderSize } from 'http';
                 .post(`/api/api.php?cas=deleteselectedmatiere&id=${match[1].id}`)
                 .then(resu => {
                   this.GetSelectedClasseMatiere(this.editedClasse);
+                   this.$notify({
+                  group: 'app',
+                  type: 'success',
+                  width : 800,
+                  title: 'Modifcations effectuées',
+                  text: 'Les matière de la classe ont été modifiées'
+                });
                 })
             }
           })
@@ -269,22 +283,3 @@ import { maxHeaderSize } from 'http';
     }
   }
 </script>
-<style lang="scss">
-.border {
-  border-radius: 5%;
-}
-.purple-color {
-   background-color: rgba(142, 93, 182, 0.664) !important; 
-   color: #FFFFFF !important;
-}
-.width100{
-  width: 100%;
-}
-.iconsmall{
-  width: 30px;
-  height: 30px;
-}
-.textbold{
-  font-weight: bold;
-}
-</style>

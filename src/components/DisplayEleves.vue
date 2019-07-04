@@ -156,7 +156,17 @@ export default {
           .post(`/api/api.php?cas=addeleve`, data)
             .then(res => { 
               this.Close();
-              this.GetEleves();
+              let type = res.data === -1 ? 'error' : 'success';
+              let title = res.data === -1 ? 'Echec' : 'Succès';
+              let text = res.data === -1 ? "Echec de l'ajout" : "élève ajoutée"; 
+                    this.GetEleves();
+                    this.$notify({
+                    group: 'app',
+                    type,
+                    width : 800,
+                    title,
+                    text
+                    });
              })
     },
     Modif(eleve) {
@@ -165,6 +175,13 @@ export default {
             .then(res => {
               this.Close();
               this.GetEleves();
+              this.$notify({
+                group: 'app',
+                type: 'success',
+                width : 800,
+                title: 'Modifcations effectuées',
+                text: "Les informations de l'èleve ont été modifiées"
+              });
             })
     },
     GetClasses() {
@@ -223,7 +240,7 @@ export default {
                   type: 'success',
                   width : 800,
                   title: 'Suppression Effectuée',
-                  text: "La l'élève : "+res.data+" a été supprimé"
+                  text: "L'élève : "+res.data+" a été supprimé"
                 });
             })
         }
@@ -232,19 +249,5 @@ export default {
 }
 }
 </script>
-<style lang="scss">
-.border {
-  border-radius: 5%;
-}
-.purple-color {
-   background-color: rgba(142, 93, 182, 0.664) !important; 
-   color: #FFFFFF !important;
-}
-.width100{
-  width: 100%;
-}
-.textbold{
-  font-weight: bold;
-}
-</style>
+
  

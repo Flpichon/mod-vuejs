@@ -13,7 +13,7 @@
               @click="Redirect(item.link)"
             >
               <v-list-tile-action>
-                <v-icon>{{ item.icon }}</v-icon>
+                <v-icon medium>{{ item.icon }}</v-icon>
               </v-list-tile-action>
               <v-list-tile-content>
                 <v-list-tile-title>{{ item.title }}</v-list-tile-title>
@@ -42,10 +42,9 @@
       {img: '/src/assets/klass-red-png.png'}
       ],
       menu: [
-        { icon: "home", title: "Accueil", link: "/" },
-        { icon: "info", title: "Eleves", link: "/eleve" },
-        { icon: "info", title: "Matières", link: "/matiere" },
-        { icon: "info", title: "About", link: "/about" }
+        { icon: "meeting_room", title: "Classes", link: "/" },
+        { icon: "school", title: "Eleves", link: "/eleve" },
+        { icon: "event_note", title: "Matières", link: "/matiere" },
             ]
         };
     },
@@ -80,7 +79,7 @@
             }
           this.i ++;
           this.currentImg = randomImg;
-            if (this.i >= 28)
+            if (this.i >= 5)
             {
               this.currentImg = "/src/assets/truc.gif";
             }

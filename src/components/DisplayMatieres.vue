@@ -89,7 +89,7 @@ export default {
                 .then(res => {
                 let type = res.data === -1 ? 'error' : 'success';
                 let title = res.data === -1 ? 'Echec' : 'Succès';
-                let text = res.data === -1 ? "Echec de l'ajout" : "Classe ajoutée"; 
+                let text = res.data === -1 ? "Echec de l'ajout" : "Matière ajoutée"; 
                     this.GetMatieres(); 
                     this.$notify({
                     group: 'app',
@@ -144,19 +144,5 @@ export default {
     },
 }
 </script>
-<style lang="scss">
-.border {
-  border-radius: 5%;
-}
-.purple-color {
-   background-color: rgba(142, 93, 182, 0.664) !important; 
-   color: #FFFFFF !important;
-}
-.width100{
-  width: 100%;
-}
-.textbold{
-  font-weight: bold;
-}
-</style>
+
  
