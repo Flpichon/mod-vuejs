@@ -109,7 +109,7 @@ export default {
                 },
                 { text: 'Coefficient', align: 'left', value: 'coefficient' },
                 { text: 'Description', align: 'left', value: 'description' },
-                { text: 'Matière', align: 'left', value: 'matière' }
+                { text: 'Matière', align: 'left', value: 'intitule' }
             ],
             matiere: [],
             tabs: [],
