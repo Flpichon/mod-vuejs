@@ -125,8 +125,12 @@ export default {
                 },
                 { text: 'Coefficient', align: 'left', value: 'coefficient' },
                 { text: 'Description', align: 'left', value: 'description' },
+<<<<<<< HEAD
                 { text: 'Matière', align: 'left', value: 'matière' },
                 { text: 'Actions', value: 'name', sortable: false },
+=======
+                { text: 'Matière', align: 'left', value: 'intitule' }
+>>>>>>> 4e4ed33630df2a62be6121c47cc0b49ee59f8c6f
             ],
             matieres: [],
             tabs: [],
@@ -156,7 +160,11 @@ export default {
                             numero++;
                         })
                         this.tabs.unshift({
+<<<<<<< HEAD
                             id :999,
+=======
+                            id :-1,
+>>>>>>> 4e4ed33630df2a62be6121c47cc0b49ee59f8c6f
                             intitule: 'Toutes',
                         })
                         this.activeTab = 0;

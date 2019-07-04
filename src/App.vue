@@ -45,5 +45,30 @@ export default {
 .min-padding {
   padding-top: 0px !important;
 }
+.success{
+  width: 300px;
+  height: 120px;
+  font-size: 17px !important;
+  text-align: center !important;
+  border-radius: 3%;
+  border-top-right-radius: 0% !important;
+}
+.border {
+  border-radius: 5%;
+}
+.purple-color {
+   background-color: rgba(142, 93, 182, 0.664) !important; 
+   color: #FFFFFF !important;
+}
+.width100{
+  width: 100%;
+}
+.iconsmall{
+  width: 30px;
+  height: 30px;
+}
+.textbold{
+  font-weight: bold;
+}
 </style>
 
