@@ -174,15 +174,17 @@ export default {
     .then(res => {
       res.data.map(data => data.complet = data.libelle+' '+data.numero);
       scope.classes = (res.data);
+      this.editedEleve.classe= scope.classes[0].id;
     });
     },
      Close () {
+       let scope = this;
         this.dialog = false;
         setTimeout(() => {
           this.editedEleve.nom = "Nouvel";
           this.editedEleve.prenom = "Eleve";
           this.editedEleve.date_naissance = new Date().toISOString().substr(0, 10);
-          this.editedEleve.classe = 0;
+          this.editedEleve.classe = this.classes[0].id;
           this.editedEleve.onEdit = false;
           this.editedClasse = -1
         }, 300)

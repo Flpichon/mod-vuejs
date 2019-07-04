@@ -11,7 +11,8 @@
           </template>
           <v-card>
             <v-card-title>
-              <span class="headline">Nouvelle note</span>
+              <span v-if="!editedNote.onEdit" class="headline">Nouvelle note</span>
+              <span v-else class="headline">Modifier Note</span>
             </v-card-title>
             <v-card-text>
               <v-container grid-list-md>
@@ -47,8 +48,8 @@
                 ></v-date-picker>
               </v-menu>
                   </v-flex> -->
-                  <v-flex xs12 sm6 md4>
-                    <v-select  :items="tabs" item-text="intitule" item-value="id" v-model="editedNote.matiere" label="matière"></v-select>
+                  <v-flex xs12 sm6 md4 v-if="!editedNote.onEdit">
+                    <v-select :items="matieres" item-text="intitule" item-value="id" v-model="editedNote.matiere" label="matière"></v-select>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -68,7 +69,7 @@
             >
                 <v-tabs-slider color="blue"></v-tabs-slider>
             <v-tab
-            v-for="item in matiere"
+            v-for="item in tabs"
             :key="item.numero"
             flat
              @click="GetNotes(item.id)"
@@ -86,6 +87,21 @@
                         <td>{{ props.item.coefficient }}</td>
                         <td>{{ props.item.description }}</td>
                         <td>{{ props.item.intitule }}</td>
+                        <td class="justify-center">
+                          <v-icon color="primary"
+                          @click="modifForm(props.item)"
+                          small
+                          class="mr-2"
+                          >
+                          edit
+                          </v-icon>
+                          <v-icon color="red"
+                          @click="Delete(props.item)"
+                          small
+                          >
+                          delete
+                          </v-icon>
+                        </td>
                     </template>
                 </v-data-table>
         </v-card>
@@ -109,15 +125,16 @@ export default {
                 },
                 { text: 'Coefficient', align: 'left', value: 'coefficient' },
                 { text: 'Description', align: 'left', value: 'description' },
-                { text: 'Matière', align: 'left', value: 'matière' }
+                { text: 'Matière', align: 'left', value: 'matière' },
+                { text: 'Actions', value: 'name', sortable: false },
             ],
-            matiere: [],
+            matieres: [],
             tabs: [],
             notes: [],
             editedNote: {
                 'valeur' : 0,
                 'coefficient': 0,
-                'description': ''
+                'description': '',
             }
         }
     },
@@ -130,20 +147,20 @@ export default {
                     axios
                     .post(`/api/api.php?cas=getmatiereeleve&ideleve=${this.$store.state.eleve.id}`)
                     .then(res => {
-                        this.matiere = res.data;
-
-                        this.GetNotes(-1);
-                        this.tabs = res.data;
+                        this.matieres = res.data;
+                        this.GetNotes(999);
+                        this.tabs = [...this.matieres];
                         let numero = 0;
                         this.tabs.map(tab =>  {
                             tab.num = numero;
                             numero++;
                         })
                         this.tabs.unshift({
-                            id :0,
+                            id :999,
                             intitule: 'Toutes',
                         })
                         this.activeTab = 0;
+                        this.editedNote.matiere = this.matieres[0].id;
                     });
                 }
                 return this.$store.state.eleve;
@@ -155,7 +172,7 @@ export default {
                return axios
                 .post(`/api/api.php?cas=getmatiereeleve&ideleve=${this.$store.state.eleve.id}`)
                 .then(res => {
-                    this.matiere = res.data;
+                    this.matieres = res.data;
                     return res.data
                 });
             }
@@ -171,7 +188,6 @@ export default {
                 .then(res => { 
                 this.Close();
                 this.GetNotes(note.matiere);
-                console.log(this.note);
                 })
         },
         Close () {
@@ -180,14 +196,14 @@ export default {
           this.editedNote.valeur = 0;
           this.editedNote.coefficient = 0;
           //this.editedNote.date_naissance = new Date().toISOString().substr(0, 10);
-          this.editedNote.matiere = 0;
+          this.editedNote.matiere =  this.matieres[0].id;
           this.editedNote.description = '';
           this.editedNote.onEdit = false;
           this.editedMatiere = -1;
         }, 300)
         },
         GetNotes(matiereId) {
-            if (matiereId !== -1) {
+            if (matiereId !== 999) {
             axios
             .post(`/api/api.php?cas=getnotesmatiereeleve&ideleve=${this.eleve.id}&idmatiere=${matiereId}`)
             .then(res => {
@@ -201,11 +217,51 @@ export default {
             });
             }
         },
+        getMatiereByIntitule(intitule) {
+          let matiereClone = [...this.matieres];
+          return matiereClone.find(matiere => matiere.intitule === intitule);
+        },
         hideEleve() {
             this.isEleve = false;
             this.$store.commit('setEleve', {
              });
              this.notes = [];
+        },
+        modifForm(note) {
+          this.editedNote = Object.assign({}, note);
+          this.dialog = true;
+          this.editedNote.onEdit = true;
+        },
+        Modif(note) {
+          let matiere = this.getMatiereByIntitule(note.intitule);
+            axios
+            .post(`/api/api.php?cas=editnote`, note)
+            .then(res => {
+              this.Close();
+              this.GetNotes(matiere.id);
+            })
+        },
+        Delete(note) {
+       this.$dialog.confirm({
+          text: 'Voulez vous vraiment supprimer cet élève ?',
+          title: 'Attention',
+      })
+      .then(conf => {
+        if (conf) {
+          axios
+          .post(`/api/api.php?cas=deletenote`,note)
+            .then(res => {
+              this.GetEleves();
+              this.$notify({
+                  group: 'app',
+                  type: 'success',
+                  width : 800,
+                  title: 'Suppression Effectuée',
+                  text: "La note : "+res.data+" a été supprimée"
+                });
+            })
+        }
+      })
         }
     }
 }
