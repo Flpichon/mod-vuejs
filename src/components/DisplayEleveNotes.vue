@@ -140,7 +140,7 @@ export default {
                             numero++;
                         })
                         this.tabs.unshift({
-                            id :0,
+                            id :-1,
                             intitule: 'Toutes',
                         })
                         this.activeTab = 0;
