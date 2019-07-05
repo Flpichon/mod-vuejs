@@ -217,13 +217,9 @@ export default {
         let coefficient = 0;
         this.notes.map(note => {
           moyenne += (note.valeur * note.coefficient);
-          console.log('nc', note.coefficient);
           coefficient += parseInt(note.coefficient);
           });
-        console.log('m', moyenne);
-        console.log('c', coefficient);
         moyenne = moyenne / coefficient;
-        console.log(moyenne);
         return moyenne;
       },
         Add(note) {
