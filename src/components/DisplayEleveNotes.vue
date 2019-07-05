@@ -4,6 +4,8 @@
             <v-btn @click="hideEleve">x</v-btn>
             <v-card-title>
                 <h3 class="headline mb-0">{{eleveDisplay.nom | Majuscules}} {{eleveDisplay.prenom | Majuscules}}</h3>
+                <v-spacer></v-spacer>
+                  <div> Moyenne : {{getMoyenne}}</div>
             </v-card-title>
             <v-dialog v-model="dialog" max-width="500px" persistent>
           <template v-slot:activator="{ on }">
@@ -77,7 +79,7 @@
             {{item.intitule}}
             </v-tab>
             </v-tabs>
-            <v-flex>
+              <template>
             <v-text-field
               v-model="search"
               append-icon="search"
@@ -85,7 +87,7 @@
               single-line
               hide-details
             ></v-text-field>
-            </v-flex>
+            </template>
                 <v-data-table
                 :headers="headers"
                 :items="notes"
@@ -135,6 +137,7 @@ export default {
     data: () => {
         return {
             search:'',
+            moyenne:0,
             eleve: {},
             menu1: false,
             dialog : false,
@@ -192,6 +195,9 @@ export default {
             } 
         return {nom: 'null', prenom: 'null'}
         },
+        getMoyenne() {
+          return this.CalculMoyenne() ||'pas de notes';
+        },
         getEleveMatiere() {
             if (typeof this.$store.state.eleve !== 'undefined') {
                return axios
@@ -203,9 +209,23 @@ export default {
             }
         }
     },
-    mounted() {
+    mounted() {  
     },
     methods: {
+      CalculMoyenne() {
+        let moyenne = 0;
+        let coefficient = 0;
+        this.notes.map(note => {
+          moyenne += (note.valeur * note.coefficient);
+          console.log('nc', note.coefficient);
+          coefficient += parseInt(note.coefficient);
+          });
+        console.log('m', moyenne);
+        console.log('c', coefficient);
+        moyenne = moyenne / coefficient;
+        console.log(moyenne);
+        return moyenne;
+      },
         Add(note) {
             note.id_eleve = this.eleve.id;
             axios
