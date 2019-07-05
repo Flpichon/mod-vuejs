@@ -86,6 +86,7 @@
               label="Recherche"
               single-line
               hide-details
+              class="w150"
             ></v-text-field>
             </template>
                 <v-data-table
