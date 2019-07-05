@@ -220,7 +220,7 @@ export default {
           coefficient += parseInt(note.coefficient);
           });
         moyenne = moyenne / coefficient;
-        return moyenne;
+        return moyenne.toFixed(2);
       },
         Add(note) {
             note.id_eleve = this.eleve.id;
@@ -228,7 +228,7 @@ export default {
                 .post(`/api/api.php?cas=addNote`, note)
                 .then(res => { 
                 this.Close();
-                this.GetNotes(note.matiere);
+                this.GetNotes(999);
                 })
         },
         Close () {
