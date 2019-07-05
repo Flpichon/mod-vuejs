@@ -1,7 +1,9 @@
 <template>
     <v-container>
         <v-card v-show="isEleve===true">
-            <v-btn @click="hideEleve">x</v-btn>
+            <v-btn fab dark small color="error" @click="hideEleve">
+               <v-icon dark>close</v-icon>
+            </v-btn>
             <v-card-title>
                 <h3 class="headline mb-0">{{eleveDisplay.nom | Majuscules}} {{eleveDisplay.prenom | Majuscules}}</h3>
                 <v-spacer></v-spacer>
