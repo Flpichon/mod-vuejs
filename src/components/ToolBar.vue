@@ -1,13 +1,13 @@
 <template>
       <v-content>
-        <v-navigation-drawer :clipped="clipped" v-model="drawer" enable-resize-watcher :hide-overlay=false app dark>
+        <v-navigation-drawer :class="theme.src" :clipped="clipped" v-model="drawer" enable-resize-watcher :hide-overlay=false app dark>
           <v-toolbar flat class="transparent">
             <v-list v-model="currentImg" class="">
                   <img  @click="changeImg()" class="avatar" :src="currentImg">
             </v-list>
           </v-toolbar >
             <v-divider class="mt-5"></v-divider>
-            <v-list-tile class="slow-transition m-2 btn"
+            <v-list-tile :class="theme.btnmenu" class="slow-transition m-2 btn"
               v-for="item in menu"
               :key="item.title"
               @click="Redirect(item.link)"
@@ -20,9 +20,27 @@
               </v-list-tile-content>
             </v-list-tile>
         </v-navigation-drawer>
-        <v-toolbar status fixed app :clipped-left="clipped" :scroll-off-screen="true" class="deep-purple darken-2">
+        <v-toolbar status fixed app :clipped-left="clipped" :scroll-off-screen="true" :class="theme.color" >
             <v-toolbar-side-icon class="white--text" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             <v-toolbar-title class="white--text font-weight-thin">Gestion d'élèves</v-toolbar-title>
+                    <v-menu :nudge-width="50">
+          <template v-slot:activator="{ on }">
+            <v-toolbar-title v-on="on">
+              <span class="white--text">thème</span>
+              <v-icon dark>arrow_drop_down</v-icon>
+            </v-toolbar-title>
+          </template>
+  
+          <v-list>
+            <v-list-tile
+              v-for="item in toto"
+              :key="item.nom"
+              @click="select(item)"
+            >
+              <v-list-tile-title v-text="item.nom"></v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
         </v-toolbar>
       </v-content>
 </template>
@@ -32,6 +50,8 @@
   export default {
     data() {
     return {
+      theme:{nom:"default2" , color: "colorviolet", btnmenu: "btn",src:"v-navigation-violet"},
+      toto:[],
       i:0,
       currentImg:"",
       drawer: true,
@@ -49,10 +69,16 @@
         };
     },
     mounted() {
+      this.toto = this.$store.state.theme1
       this.currentImg = this.changeImg();
     },
     methods: {
-
+        select(item){
+          this.theme = item;
+          this.$store.commit('setTheme', {
+            item
+          })
+        },
         menuItems() {
         return this.menu;
         },
@@ -94,12 +120,17 @@
    {
      font-size: 15px;
    }
-   .v-navigation-drawer{
+   .v-navigation-violet{
      background-image: url(/src/assets/8196.jpg);
       background-size:400%;
       text-align: center;
    }
 
+   .v-navigation-orange{
+     background-image: url(/src/assets/6530.jpg);
+      background-size:300%;
+      text-align: center;
+   }
 .slow-transition {
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0);
 	transition: all 500ms;
@@ -114,8 +145,22 @@
   text-decoration: none !important;
 }
 .btn:hover{
-    background-color:rgba(179, 165, 243, 0.513);;
+    background-color:rgba(165, 124, 199, 0.664);
     width: 90%;
+}
+.btnazur{
+  background-color: rgba(240, 92, 24, 0.664)!important;
+
+}
+.btnazur:hover{
+    background-color:rgba(231, 119, 67, 0.664)!important;
+
+}
+.colororange{
+  background-color: rgb(212, 81, 20)!important;
+}
+.colorviolet {
+  background-color: #512DA8 !important;
 }
 .avatar {
   width: 150px !important;
