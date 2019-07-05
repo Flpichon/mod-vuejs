@@ -185,6 +185,7 @@ export default {
                             numero++;
                         })
                         this.tabs.unshift({
+                            numero: 999,
                             id :999,
                             intitule: 'Toutes',
                         })
@@ -259,6 +260,7 @@ export default {
             .post(`/api/api.php?cas=getallnotesmatiereeleve&ideleve=${this.eleve.id}`)
             .then(res => {
                 this.notes = res.data;
+                this.activeTab = 0;
             });
             }
         },
