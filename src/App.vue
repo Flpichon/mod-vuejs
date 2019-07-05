@@ -63,6 +63,9 @@ export default {
 .width100{
   width: 100%;
 }
+.w150{
+  width: 150px;
+}
 .iconsmall{
   width: 30px;
   height: 30px;

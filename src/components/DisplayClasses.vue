@@ -26,6 +26,7 @@
         </v-card>
       </v-dialog>
               <v-text-field
+              class="w150"
               v-model="search"
               append-icon="search"
               label="Recherche"

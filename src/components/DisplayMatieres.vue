@@ -1,6 +1,7 @@
 <template>
       <v-container fluid grid-list-md>
       <v-text-field
+        class="w150"
         v-model="search"
         append-icon="search"
         label="Recherche"
