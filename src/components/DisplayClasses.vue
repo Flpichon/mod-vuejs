@@ -15,6 +15,9 @@
                     multiple
                   ></v-autocomplete>
                 </v-flex>
+                 <v-flex xs12 sm6>
+                   <v-chip v-for="item in chipsMatiere" :key="item.id">{{item.intitule}}</v-chip>
+                </v-flex>               
               </v-layout>
             </v-container>
           </v-card-text>
@@ -114,6 +117,7 @@ import { maxHeaderSize } from 'http';
         items:[],
         matieres:[],
         selectedMatiere: [],
+        chipsMatiere: [],
         classeMatiereTab: []
         }
     },
@@ -175,6 +179,10 @@ import { maxHeaderSize } from 'http';
                 index.push(cMT[1].matiereId);
                 });
               this.selectedMatiere = index;
+              this.chipsMatiere = [...this.matieres];
+              this.chipsMatiere = this.chipsMatiere.filter(chip => {
+                return index.some(ind => ind === chip.id);
+                });
               return index;
             });
         },
