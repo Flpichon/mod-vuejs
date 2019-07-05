@@ -25,6 +25,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+           <v-flex md12 offset-md10>
               <v-text-field
               class="w150"
               v-model="search"
@@ -33,6 +34,7 @@
               single-line
               hide-details
             ></v-text-field>
+           </v-flex>
        <v-btn round class="purple-color" @click="AddRow()">Ajouter une classe</v-btn>
       <v-data-iterator
         :items="items"
