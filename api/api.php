@@ -260,6 +260,7 @@ if (isset($_GET["cas"])) {
                 $note->description = $item['description'];
                 $note->Update();
                 echo $note->id;
+                break;
 
                 //DELETE NOTE
                 case 'deletenote':
@@ -268,6 +269,7 @@ if (isset($_GET["cas"])) {
                 $note->id = $item['id'];
                 $note->Delete();
                 echo 'Suppr ok';
+                break;
 
     }
 
