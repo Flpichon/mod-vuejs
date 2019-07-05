@@ -23,7 +23,8 @@
         <v-toolbar status fixed app :clipped-left="clipped" :scroll-off-screen="true" :class="theme.color" >
             <v-toolbar-side-icon class="white--text" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             <v-toolbar-title class="white--text font-weight-thin">Gestion d'élèves</v-toolbar-title>
-                    <v-menu :nudge-width="50">
+            <v-spacer></v-spacer>
+            <v-menu :nudge-width="50">
           <template v-slot:activator="{ on }">
             <v-toolbar-title v-on="on">
               <span class="white--text">thème</span>
