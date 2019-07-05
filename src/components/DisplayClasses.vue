@@ -25,12 +25,22 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+              <v-text-field
+              v-model="search"
+              append-icon="search"
+              label="Recherche"
+              single-line
+              hide-details
+            ></v-text-field>
        <v-btn round class="purple-color" @click="AddRow()">Ajouter une classe</v-btn>
       <v-data-iterator
         :items="items"
         :rows-per-page-items="rowsPerPageItems"
         :rows-per-page-text="rowPageText"
         :pagination.sync="pagination"
+        no-data-text="Aucune classe..."
+        no-results-text="Aucun résultat"
+        :search="search"
         content-tag="v-layout"
         row
         wrap
@@ -93,6 +103,7 @@ import { maxHeaderSize } from 'http';
   export default {
     data: () => {
         return {
+        search:'',
         dialog: false,
         rowPageText: 'éléments par page:',
         rowsPerPageItems: [8, 24, 32,  { text: "$vuetify.dataIterator.rowsPerPageAll", value: -1 }],
