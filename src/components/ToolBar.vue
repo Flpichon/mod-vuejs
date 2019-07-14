@@ -1,9 +1,10 @@
 <template>
       <v-content>
-        <v-navigation-drawer :class="theme.src" :clipped="clipped" v-model="drawer" enable-resize-watcher :hide-overlay=false app dark>
+        <v-navigation-drawer class="v-navigation-violet" :clipped="clipped" v-model="drawer" enable-resize-watcher :hide-overlay=false app dark>
+          <div :style="getProgress"></div>
           <v-toolbar flat class="transparent">
             <v-list v-model="currentImg" class="">
-                  <img  @click="changeImg()" class="avatar" :src="currentImg">
+                  <img  @click="changeImg()" class="avatar" :src="currentImg"/>
             </v-list>
           </v-toolbar >
             <v-divider class="mt-5"></v-divider>
@@ -63,6 +64,12 @@
             ]
         };
     },
+    computed: {
+      getProgress: function() {
+        let value = this.$store.getters['themeColor'];
+      	return `width: 100%;height: 100%;background: ${value};opacity: .4;position: absolute;`
+        },
+    },
     mounted() {
       this.toto = this.$store.state.theme1
       this.currentImg = this.changeImg();
@@ -116,11 +123,13 @@
      font-size: 15px;
    }
    .v-navigation-violet{
-     background-image: url(/src/assets/8196.jpg);
+     background: url(/src/assets/8196.jpg);
       background-size:400%;
       text-align: center;
    }
-
+.color-overlay {
+  width: 100%;height: 100%;background: blue;opacity: .2;position: absolute;
+}
    .v-navigation-orange{
      background-image: url(/src/assets/6530.jpg);
       background-size:300%;
