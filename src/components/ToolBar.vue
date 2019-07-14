@@ -7,11 +7,7 @@
             </v-list>
           </v-toolbar >
             <v-divider class="mt-5"></v-divider>
-<<<<<<< HEAD
-            <v-list-tile :color="$store.getters['themeColor']" :style="{'background': $store.getters['themeColor']}" :class="theme.btnmenu" class="slow-transition m-2 btn"
-=======
             <v-list-tile :style="{'background':$store.getters['themeColor']}" class="slow-transition m-2 btn"
->>>>>>> aa0d78d55e3c9b9daa5e802eefbb5eebf34bec6f
               v-for="item in menu"
               :key="item.title"
               @click="Redirect(item.link)"
