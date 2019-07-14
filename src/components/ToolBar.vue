@@ -7,7 +7,7 @@
             </v-list>
           </v-toolbar >
             <v-divider class="mt-5"></v-divider>
-            <v-list-tile :class="theme.btnmenu" class="slow-transition m-2 btn"
+            <v-list-tile :color="$store.getters['themeColor']" :style="{'background': $store.getters['themeColor']}" :class="theme.btnmenu" class="slow-transition m-2 btn"
               v-for="item in menu"
               :key="item.title"
               @click="Redirect(item.link)"
@@ -19,7 +19,6 @@
                 <v-list-tile-title>{{ item.title }}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
-            <colorChoice/>
         </v-navigation-drawer>
         <v-toolbar status fixed app :clipped-left="clipped" :scroll-off-screen="true" :class="theme.color" >
             <v-toolbar-side-icon class="white--text" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
@@ -32,15 +31,7 @@
               <v-icon dark>arrow_drop_down</v-icon>
             </v-toolbar-title>
           </template>
-          <v-list>
-            <v-list-tile
-              v-for="item in toto"
-              :key="item.nom"
-              @click="select(item)"
-            >
-              <v-list-tile-title v-text="item.nom"></v-list-tile-title>
-            </v-list-tile>
-          </v-list>
+         <colorChoice/>
         </v-menu>
         </v-toolbar>
       </v-content>
