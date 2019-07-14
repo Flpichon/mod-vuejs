@@ -11,6 +11,7 @@ export default new Vuex.Store({
       {nom:"orange" , color: "colororange", btnmenu:"btnazur",src:"v-navigation-orange"},
       {nom:"violet" , color: "colorviolet", btnmenu: "btn-violet",src:"v-navigation-violet"},
     ],
+    themeColor: '#512DA8'
   },
   mutations: {
     setEleve(state, payload) {
@@ -18,7 +19,14 @@ export default new Vuex.Store({
     },
     setTheme(state, payload) {
       state.theme = payload.theme
+    },
+    setThemeColor(state, color) {
+      state.themeColor = color;
     }
+
+  },
+  getters: {
+    themeColor: state => state.themeColor
   },
   actions: {
 

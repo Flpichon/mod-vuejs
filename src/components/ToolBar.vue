@@ -19,6 +19,7 @@
                 <v-list-tile-title>{{ item.title }}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
+            <colorChoice/>
         </v-navigation-drawer>
         <v-toolbar status fixed app :clipped-left="clipped" :scroll-off-screen="true" :class="theme.color" >
             <v-toolbar-side-icon class="white--text" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
@@ -31,7 +32,6 @@
               <v-icon dark>arrow_drop_down</v-icon>
             </v-toolbar-title>
           </template>
-  
           <v-list>
             <v-list-tile
               v-for="item in toto"
@@ -47,8 +47,11 @@
 </template>
 
 <script>
-
+  import colorChoice from './colorChoice'
   export default {
+    components : {
+      colorChoice
+    },
     data() {
     return {
       theme:{nom:"default2" , color: "colorviolet", btnmenu: "btn",src:"v-navigation-violet"},
