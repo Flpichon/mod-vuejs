@@ -1,7 +1,7 @@
 <template>
     <div>
       <v-toolbar flat color="white">
-        <v-toolbar-title class="purple--text lighten-2">Gestion des élèves</v-toolbar-title>
+        <v-toolbar-title :color="$store.getters['themeColor']" class="lighten-2">Gestion des élèves</v-toolbar-title>
         <v-divider
           class="mx-2"
           inset
@@ -17,7 +17,7 @@
             ></v-text-field>
         <v-dialog v-model="dialog" max-width="500px" persistent>
           <template v-slot:activator="{ on }">
-            <v-btn round class="purple-color mb-2" v-on="on">Ajouter un élève</v-btn>
+            <v-btn round :color="$store.getters['themeColor']" class="white--text mb-2" v-on="on">Ajouter un élève</v-btn>
           </template>
           <v-card>
             <v-card-title>
