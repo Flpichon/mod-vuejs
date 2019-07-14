@@ -7,7 +7,7 @@
             </v-list>
           </v-toolbar >
             <v-divider class="mt-5"></v-divider>
-            <v-list-tile :class="theme.btnmenu" class="slow-transition m-2 btn"
+            <v-list-tile :style="{'background':$store.getters['themeColor']}" class="slow-transition m-2 btn"
               v-for="item in menu"
               :key="item.title"
               @click="Redirect(item.link)"
@@ -21,7 +21,7 @@
             </v-list-tile>
             <colorChoice/>
         </v-navigation-drawer>
-        <v-toolbar status fixed app :clipped-left="clipped" :scroll-off-screen="true" :class="theme.color" >
+        <v-toolbar status fixed app :clipped-left="clipped" :scroll-off-screen="true" :class="theme.color" :color="$store.getters['themeColor']" >
             <v-toolbar-side-icon class="white--text" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             <v-toolbar-title class="white--text font-weight-thin">Klass ~ Gestion d'élèves</v-toolbar-title>
             <v-spacer></v-spacer>
@@ -54,7 +54,7 @@
     },
     data() {
     return {
-      theme:{nom:"default2" , color: "colorviolet", btnmenu: "btn",src:"v-navigation-violet"},
+      theme:{nom:"default2" , color: "colorviolets", btnmenu: "btn",src:"v-navigation-violet"},
       toto:[],
       i:0,
       currentImg:"",
@@ -143,13 +143,13 @@
 	box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.3);
 }
 .btn{
-  background-color: rgba(142, 93, 182, 0.664);
+ // background-color: rgba(142, 93, 182, 0.664);
   width: 85%;
   color : #ffffff !important;
   text-decoration: none !important;
 }
 .btn:hover{
-    background-color:rgba(165, 124, 199, 0.664);
+  //  background-color:rgba(165, 124, 199, 0.664);
     width: 90%;
 }
 .btnazur{
