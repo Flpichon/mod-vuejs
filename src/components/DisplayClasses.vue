@@ -38,7 +38,7 @@
               hide-details
             ></v-text-field>
            </v-flex>
-       <v-btn round class="purple-color" @click="AddRow()">Ajouter une classe</v-btn>
+       <v-btn round class="white--text" :color="$store.getters['themeColor']" @click="AddRow()">Ajouter une classe</v-btn>
       <v-data-iterator
         :items="items"
         :rows-per-page-items="rowsPerPageItems"

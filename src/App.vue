@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="background-img">
-    <v-app light id="inspire">
+    <v-app  id="inspire">
         <notifications group="app" />
         <ToolBar/>
         <v-content class="min-padding">

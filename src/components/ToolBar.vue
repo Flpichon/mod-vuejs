@@ -1,13 +1,14 @@
 <template>
       <v-content>
-        <v-navigation-drawer :class="theme.src" :clipped="clipped" v-model="drawer" enable-resize-watcher :hide-overlay=false app dark>
+        <v-navigation-drawer class="v-navigation-violet" :clipped="clipped" v-model="drawer" enable-resize-watcher :hide-overlay=false app dark>
+          <div :style="getProgress"></div>
           <v-toolbar flat class="transparent">
             <v-list v-model="currentImg" class="">
-                  <img  @click="changeImg()" class="avatar" :src="currentImg">
+                  <img  @click="changeImg()" class="avatar" :src="currentImg"/>
             </v-list>
           </v-toolbar >
             <v-divider class="mt-5"></v-divider>
-            <v-list-tile :class="theme.btnmenu" class="slow-transition m-2 btn"
+            <v-list-tile :style="{'background':$store.getters['themeColor']}" class="slow-transition m-2 btn"
               v-for="item in menu"
               :key="item.title"
               @click="Redirect(item.link)"
@@ -20,7 +21,7 @@
               </v-list-tile-content>
             </v-list-tile>
         </v-navigation-drawer>
-        <v-toolbar status fixed app :clipped-left="clipped" :scroll-off-screen="true" :class="theme.color" >
+        <v-toolbar status fixed app :clipped-left="clipped" :scroll-off-screen="true" :class="theme.color" :color="$store.getters['themeColor']" >
             <v-toolbar-side-icon class="white--text" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             <v-toolbar-title class="white--text font-weight-thin">Klass ~ Gestion d'élèves</v-toolbar-title>
             <v-spacer></v-spacer>
@@ -31,27 +32,21 @@
               <v-icon dark>arrow_drop_down</v-icon>
             </v-toolbar-title>
           </template>
-  
-          <v-list>
-            <v-list-tile
-              v-for="item in toto"
-              :key="item.nom"
-              @click="select(item)"
-            >
-              <v-list-tile-title v-text="item.nom"></v-list-tile-title>
-            </v-list-tile>
-          </v-list>
+         <colorChoice/>
         </v-menu>
         </v-toolbar>
       </v-content>
 </template>
 
 <script>
-
+  import colorChoice from './colorChoice'
   export default {
+    components : {
+      colorChoice
+    },
     data() {
     return {
-      theme:{nom:"default2" , color: "colorviolet", btnmenu: "btn",src:"v-navigation-violet"},
+      theme:{nom:"default2" , color: "colorviolets", btnmenu: "btn",src:"v-navigation-violet"},
       toto:[],
       i:0,
       currentImg:"",
@@ -68,6 +63,12 @@
         { icon: "event_note", title: "Matières", link: "/matiere" },
             ]
         };
+    },
+    computed: {
+      getProgress: function() {
+        let value = this.$store.getters['themeColor'];
+      	return `width: 100%;height: 100%;background: ${value};opacity: .4;position: absolute;`
+        },
     },
     mounted() {
       this.toto = this.$store.state.theme1
@@ -122,11 +123,13 @@
      font-size: 15px;
    }
    .v-navigation-violet{
-     background-image: url(/src/assets/8196.jpg);
+     background: url(/src/assets/8196.jpg);
       background-size:400%;
       text-align: center;
    }
-
+.color-overlay {
+  width: 100%;height: 100%;background: blue;opacity: .2;position: absolute;
+}
    .v-navigation-orange{
      background-image: url(/src/assets/6530.jpg);
       background-size:300%;
@@ -140,13 +143,13 @@
 	box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.3);
 }
 .btn{
-  background-color: rgba(142, 93, 182, 0.664);
+ // background-color: rgba(142, 93, 182, 0.664);
   width: 85%;
   color : #ffffff !important;
   text-decoration: none !important;
 }
 .btn:hover{
-    background-color:rgba(165, 124, 199, 0.664);
+  //  background-color:rgba(165, 124, 199, 0.664);
     width: 90%;
 }
 .btnazur{

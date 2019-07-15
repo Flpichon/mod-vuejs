@@ -15,8 +15,16 @@ import './plugins/element.js'
 import "./filters"
 import VuetifyDialog from 'vuetify-dialog'
 
+
 Vue.config.productionTip = false
-Vue.use(Vuetify);
+Vue.use(Vuetify, {
+  theme: {
+    primary: '#3f51b5',
+    secondary: '#b0bec5',
+    accent: '#8c9eff',
+    error: '#b71c1c'
+  }
+});
 Vue.use(Notifications);
 Vue.use(VuetifyDialog, {
   confirm: {

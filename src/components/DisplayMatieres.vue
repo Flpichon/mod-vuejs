@@ -10,7 +10,7 @@
         hide-details
       ></v-text-field>
       </v-flex>
-       <v-btn round class="purple-color" @click="AddRow()">Ajouter une matière</v-btn>
+       <v-btn round :color="$store.getters['themeColor']" class="white--text" @click="AddRow()">Ajouter une matière</v-btn>
       <v-data-iterator
         :items="items"
         no-data-text="Aucune classe..."
