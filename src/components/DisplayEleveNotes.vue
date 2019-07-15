@@ -11,7 +11,7 @@
             </v-card-title>
             <v-dialog v-model="dialog" max-width="500px" persistent>
           <template v-slot:activator="{ on }">
-            <v-btn round class="purple-color mb-2" v-on="on">Ajouter une note</v-btn>
+            <v-btn round class="mb-2 white--text" :color="$store.getters['themeColor']"  v-on="on">Ajouter une note</v-btn>
           </template>
           <v-card>
             <v-card-title>

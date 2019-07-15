@@ -4,7 +4,7 @@
           <div :style="getProgress"></div>
           <v-toolbar flat class="transparent">
             <v-list v-model="currentImg" class="">
-                  <img  @click="changeImg()" class="avatar" :src="currentImg"/>
+                  <img @click="changeImg()" class="avatar" :src="currentImg"/>
             </v-list>
           </v-toolbar >
             <v-divider class="mt-5"></v-divider>
@@ -67,7 +67,11 @@
     computed: {
       getProgress: function() {
         let value = this.$store.getters['themeColor'];
-      	return `width: 100%;height: 100%;background: ${value};opacity: .4;position: absolute;`
+        return `width: 100%;
+        height: 100%;
+        background: ${value};
+        opacity: 0.5;
+        position: absolute;`
         },
     },
     mounted() {
